@@ -28,17 +28,4 @@ module.exports.policies = {
 
    '*' : 'localize',
 
-	'PagesController': {
-		'getLogin': ['isGuest','localize'],
-		'getSignUp': ['isGuest','localize'],
-		'postKycStep2': ['tokenAuth','localize']
-	},
-
-	'DashboardController': {
-		'getDashboard': ['tokenAuth','localize'],
-		'setEthereumAddress': ['tokenAuth','localize'],
-		'signup': ['isGuest','localize'],
-		'login': ['isGuest','localize'],
-		'tokenLogin': ['isGuest','localize']
-	}
 };
