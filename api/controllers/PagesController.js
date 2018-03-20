@@ -34,18 +34,28 @@ module.exports = {
 			metaDescription: 'Play Share and Earn while playing amazing games you\'ll love.'
 		});
 	},
+	
+	
+	
+	/**
+	* Redirect to privacy policy page
+	*/
+	redirectPrivacy: function (req, res) {
+		return res.redirect("/privacy");
+	},
 
 
 	/**
 	* Return the privacy policy page
 	*/
 	getPrivacyPage: function (req, res) {
-		return res.view('public/login', {
+		return res.view('public/privacy', {
 			layout: 'public/layout',
 			title: 'RaidParty Privacy Policy',
 			metaDescription: ''
 		});
 	},
+
 
 
 };
