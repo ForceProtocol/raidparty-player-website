@@ -55,7 +55,28 @@ module.exports = {
 			metaDescription: ''
 		});
 	},
-
-
-
+	
+	
+	/**
+	* Return the developer home page
+	*/
+	getDeveloperHomePage: function (req, res) {
+		return res.view('public/developer', {
+			layout: 'public/layout',
+			title: 'RaidParty, Play Share and Earn FORCE',
+			metaDescription: 'Drive real players to your games and reduce player attrition.'
+		});
+	},
+	
+	
+	/**
+	* Return the developer terms
+	*/
+	getDeveloperTerms: function (req, res) {
+		return res.view('public/developer-terms', {
+			layout: 'public/layout',
+			title: 'Game developer terms of service with RaidParty',
+			metaDescription: 'Important information about using the RaidParty technology and services for indie game developers'
+		});
+	},
 };
