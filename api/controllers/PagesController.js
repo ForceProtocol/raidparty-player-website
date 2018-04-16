@@ -92,4 +92,16 @@ module.exports = {
 			metaDescription: 'Check out all the latest winners for players on the RaidParty gamer network'
 		});
 	},
+	
+	
+	/**
+	* Return the how to play guide for players
+	*/
+	getHowToPlay: function (req, res) {
+		return res.view('public/how-to-play', {
+			layout: 'public/layout',
+			title: 'How to play on the RaidParty game reward network',
+			metaDescription: 'Find out how to earn big prizes and rewards for playing great games on the RaidParty gaming reward network'
+		});
+	},
 };

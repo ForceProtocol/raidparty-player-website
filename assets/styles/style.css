@@ -47,7 +47,7 @@ header nav 										{ padding: 16px 0px; border: none !important; box-shadow: 0
 .banner-area { padding-top: 120px; background:url(../images/banner-pattern.svg) repeat-y; background-position: top center; background-size: cover; background-attachment: fixed; position: relative;} 
 .banner-logo { margin-bottom: 20px;}
 .iphone-screen { width: 455px;}
-.app-btns-block { margin: 47px 0 65px;}
+.app-btns-block { margin: 40px 0 65px;}
 /******* Banner section CSS End *********/
 
 /******* Middle section CSS Start ******/
@@ -198,6 +198,21 @@ h2.developer-subheading {
 
 h2.dark-title {
 	color: #486F73;
+}
+h3.instruction-heading {
+	font-size: 2.6em;
+	font-weight: normal;
+}
+
+article.instruction-item {
+	margin: 40px 0;
+}
+article.instruction-item h3 {
+	margin: 18px 0;
+}
+article.instruction-item p {
+	margin: 8px 0;
+	font-size: 16px;
 }
 
 /** Privacy Policy **/
