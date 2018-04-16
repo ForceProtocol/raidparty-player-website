@@ -79,4 +79,17 @@ module.exports = {
 			metaDescription: 'Important information about using the RaidParty technology and services for indie game developers'
 		});
 	},
+	
+	
+	/**
+	* Return the winners
+	*/
+	getWinners: function (req, res) {
+	
+		return res.view('public/winners', {
+			layout: 'public/layout',
+			title: 'All the winners of RaidParty Rewards!',
+			metaDescription: 'Check out all the latest winners for players on the RaidParty gamer network'
+		});
+	},
 };

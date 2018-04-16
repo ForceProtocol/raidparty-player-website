@@ -22,6 +22,12 @@ h2 span sup 				{ font-weight: 300; font-size: 23px;}
 p							{ font-size: 24px; font-weight: 300; line-height: 1.43em; color: #486F73;}
 p span 						{ font-family: 'Montserrat', sans-serif; font-weight: 600;}
 .paddingl-none				{ padding-left: 0px !important;}
+#wrap {
+  min-height: 100%;
+}
+#main {
+  padding-bottom: 80px; /* this needs to be bigger than footer height*/
+}
 /******* Common Element CSS End *********/
 
 /******* Header Section CSS Start *******/
@@ -82,7 +88,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7fa8ab', end
 /******** Middle section CSS End *******/
 
 /***** Bottom section CSS Start *******/
-footer			{ padding: 28px 0px; background: #424242; font-size: 14px; color: #B7B7B7;}
+footer { 
+	padding: 28px 0px; 
+	background: #424242; 
+	font-size: 14px; 
+	color: #B7B7B7;
+	position: relative;
+	margin-top: -80px; /* negative value of footer height */
+	clear: both;
+}
 .site-info		{ color: #ffffff;}
 footer a 		{ font-size: 14px; color: #ffffff; }
 footer a:hover 	{ color: #486f73; text-decoration: none;}
@@ -180,6 +194,10 @@ h2.developer-subheading {
 }
 .developer-white-block li::before {
     background-color: #486F73;
+}
+
+h2.dark-title {
+	color: #486F73;
 }
 
 /** Privacy Policy **/
