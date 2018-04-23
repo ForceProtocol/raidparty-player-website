@@ -5,7 +5,7 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var Mailchimp = require('mailchimp-api-v3')
+var Mailchimp = require('mailchimp-api-v3');
 var mailchimp = new Mailchimp('17718b6328f312bc750f542d8fbefd5c-us16');
 var mandrill = require('node-mandrill')('EHaaGsImRCQrLW9vrWSedA');
 
@@ -15,9 +15,17 @@ module.exports = {
 	/**
 	* Add a subscriber to a mailchimp list
 	*/
-	addSubscriber: function (listId,email,firstName,lastName,subscribeStatus) {
+	addSubscriber: function (listId,email,firstName,lastName,subscribeStatus,language) {
 	
 		sails.log.debug("-- addSubscriber mailchimp requested --");
+		// 	Portuguese (Brazil) = pt 
+		//	Portuguese (Portugal) = pt_PT 
+		//	Spanish (Mexico) = es 
+		// 	Spanish (Spain) = es_ES 
+		
+		if(!language){
+			language = 'en';
+		}
 		
 		return mailchimp.post('/lists/' + listId + '/members', {
 			email_address : email,
@@ -25,7 +33,8 @@ module.exports = {
 			merge_fields: {
 				"FNAME": firstName,
 				"LNAME": lastName
-			}
+			},
+			language:language
 		})
 		.then(function(results) {
 			return results;

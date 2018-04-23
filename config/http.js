@@ -42,8 +42,6 @@ module.exports.http = {
        'startRequestTimer',
        'cookieParser',
        'session',
-       'runCpaSetCookie',
-       'partnerTrackingCookie',
        'bodyParser',
        'handleBodyParserError',
        'compress',
@@ -57,71 +55,7 @@ module.exports.http = {
        '500'
      ],
 
-	runCpaSetCookie: function (req, res, next) {
-		// Check that the tracking cookie does not already exist
-		if(typeof req.cookies.run_cpa_track_id === 'undefined' && typeof req.cookies.track_id === 'undefined'){
-			
-			// Check if this is an affiliate sent visitor
-			if(typeof req.param("track_id") !== 'undefined'){
-				// Set the tracking cookie - 90 days maximum
-				res.cookie('run_cpa_track_id', req.param("track_id"), { maxAge: 7776000000});
-			}
-		}
-		return next();
-	},
 	
-	partnerTrackingCookie: function (req, res, next) {
-		// Check if this is a file request
-		var reqArr = req.path.split('.');
-		
-		// Exclude this middleware from working on files
-		if(reqArr.length > 1){
-			return next();
-		}
-		
-		// Check if the last path in the request path is a unique partner code
-		var reqPaths = req.path.split('/');
-		
-		// Must be the home page with no affiliate code
-		if(reqPaths[1].length == 0){
-			return next();
-		}
-		
-		// Extract the last path in the given URL
-		var lastPath = reqPaths[reqPaths.length - 1];
-		
-		
-		// Now check if this last path in the URL matches an affiliate code
-		/** PARTNER REFERRAL CHECK */
-		var regex = /^ico-[\w]{2,22}$/i;
-		
-		// We have a match! Partner Referral
-		if(regex.test(lastPath)){
-		
-			if(typeof req.cookies.run_cpa_track_id === 'undefined'){
-				// Check if user already has a cookie set - in which case ignore
-				if(typeof req.cookies !== 'undefined' && typeof req.cookies.track_id !== 'undefined'){
-					// Modify the requested path
-					req.url = req.path.replace(lastPath,'');
-					req.affiliateTracker = {canon:req.url};
-					return next();
-				}
-				
-				// Remove tracking URL from last path
-				req.url = req.path.replace(lastPath,'');
-				res.cookie('track_id', lastPath, { maxAge: 25340230000000});
-				
-				// Check if they also sent webid for tracking
-				if(typeof req.param('webid') !== 'undefined'){
-					res.cookie('track_id_web_id', req.param('webid'), { maxAge: 25340230000000});
-				}
-			}else{
-				req.url = req.path.replace(lastPath,'');
-			}
-		}
-		
-		return next();
-	},
 
   /***************************************************************************
   *                                                                          *
