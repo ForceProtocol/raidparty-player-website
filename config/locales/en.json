@@ -1,5 +1,20 @@
 {
 	"Start getting <span>rewarded</span> for playing<br> the <span>games</span> you love.": "Start getting <span>rewarded</span> for playing<br> the <span>games</span> you love.",
 	"RaidParty, Play Share and Earn FORCE": "RaidParty, Play Share and Earn FORCE",
-	"Thank you for confirming your subscription. You are now subscribed to RaidParty.": "Thank you for confirming your subscription. You are now subscribed to RaidParty."
+	"Thank you for confirming your subscription. You are now subscribed to RaidParty.": "Thank you for confirming your subscription. You are now subscribed to RaidParty.",
+	"Play Share and Earn while playing amazing games you'll love.": "Play Share and Earn while playing amazing games you'll love.",
+	"Limited Beta Launch: Only %s spaces remaining out of %s": "Limited Beta Launch: Only %s spaces remaining out of %s",
+	"Limited Beta Launch: Only %a spaces remaining out of %b": "Limited Beta Launch: Only %a spaces remaining out of %b",
+	"Limited Beta Launch: Only %s spaces remaining out of %t": "Limited Beta Launch: Only %s spaces remaining out of %t",
+	"Limited Beta Launch: Only %s spaces remaining out of %ss": "Limited Beta Launch: Only %s spaces remaining out of %ss",
+	"Limited Beta Launch: Only %s spaces remaining out of %d": "Limited Beta Launch: Only %s spaces remaining out of %d",
+	"Beta Launch: Only %s spaces remain out of %s": "Beta Launch: Only %s spaces remain out of %s",
+	"Only %s spaces remain out of %s": "Only %s spaces remain out of %s",
+	"Only <strong>%s</strong> spaces remain out of <strong>%s</strong>": "Only <strong>%s</strong> spaces remain out of <strong>%s</strong>",
+	"<span>Over %s</span><br />Players Entered": "<span>Over %s</span><br />Players Entered",
+	"<strong>%s</strong> spaces remain out of <strong>%s</strong>": "<strong>%s</strong> spaces remain out of <strong>%s</strong>",
+	"<strong>%s</strong> spaces left out of <strong>%s</strong>": "<strong>%s</strong> spaces left out of <strong>%s</strong>",
+	"<span>Only %s</span><br />Spaces Left": "<span>Only %s</span><br />Spaces Left",
+	"<strong>%s</strong> seats left out of <strong>%s</strong>": "<strong>%s</strong> seats left out of <strong>%s</strong>",
+	"<span>Only %s</span><br />Seats Left": "<span>Only %s</span><br />Seats Left"
 }

@@ -38,7 +38,15 @@ module.exports = {
 				json: true
 			};
 			
-			let totalSubscribers = await request(reqOptions);
+			let totalPlayers = await request(reqOptions),
+			totalSpaces = 150000,
+			spacesLeft;
+			
+			spacesLeft = totalSpaces - totalPlayers.totalPlayers;
+			
+			if(spacesLeft < 0){
+				spacesLeft = 0;
+			}
 			
 			if(req.param('subscribe')){
 				req.addFlash('success', sails.__("Thank you for confirming your subscription. You are now subscribed to RaidParty."));
@@ -49,9 +57,11 @@ module.exports = {
 			return res.view('public/home', {
 				layout: 'public/layout',
 				title: sails.__("RaidParty, Play Share and Earn FORCE"),
-				metaDescription: 'Play Share and Earn while playing amazing games you\'ll love.',
-				totalSubscribers: totalSubscribers,
-				recaptchaForm:Recaptcha.toHtml()
+				metaDescription: sails.__("Play Share and Earn while playing amazing games you\'ll love."),
+				totalSpaces: totalSpaces,
+				totalPlayers: totalPlayers.totalPlayers,
+				spacesLeft: spacesLeft,
+				recaptchaForm:recaptcha.toHTML()
 			});
 		}catch(err){
 			sails.log.error("getHomePage failed: ",err);
@@ -59,9 +69,11 @@ module.exports = {
 			return res.view('public/home', {
 				layout: 'public/layout',
 				title: sails.__("RaidParty, Play Share and Earn FORCE"),
-				metaDescription: 'Play Share and Earn while playing amazing games you\'ll love.',
-				totalSubscribers: 25469,
-				recaptchaForm:Recaptcha.toHtml()
+				metaDescription: sails.__("Play Share and Earn while playing amazing games you\'ll love."),
+				totalSpaces: 150000,
+				totalPlayers: 31745,
+				spacesLeft: 118255,
+				recaptchaForm:recaptcha.toHTML()
 			});
 		}
 	},
@@ -158,7 +170,7 @@ module.exports = {
 			layout: 'public/layout',
 			title: 'Claim your seat in the free-to-play RaidParty competition for a chance to win over 16ETH!',
 			metaDescription: 'Enter our free-to-play competition for a chance to win over 16ETH!',
-			recaptchaForm:Recaptcha.toHtml()
+			recaptchaForm:recaptcha.toHTML()
 		});
 	},
 	
