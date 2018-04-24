@@ -10,7 +10,8 @@ module.exports.routes = {
 	'GET /winners': 'PagesController.getWinners',
 	'GET /how-to-play': 'PagesController.getHowToPlay',
 	
-	
+	/** Pre Join Landing Page **/
+	'GET /join': 'PagesController.getJoinPage',
+	'POST /join': 'PagesController.postJoinPage',
 	'POST /subscribe': 'PagesController.postSubscribe',
-
 };

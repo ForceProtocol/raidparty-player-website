@@ -32,5 +32,8 @@ module.exports = {
     mandrillTestApiKey: '57Ev-Hbw1O4KoVnCT3UfnQ', 	// TEST KEY
 
     hookTimeout: 120000,
+	
+	API_HOST: 'https://hub.raidparty.io',
+    APP_HOST: 'https://app.raidparty.io'
 
 };

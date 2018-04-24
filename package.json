@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "ejs": "^2.5.7",
     "grunt": "1.0.1",
@@ -39,7 +40,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js --port 1338"
   },
   "main": "app.js",
   "repository": {

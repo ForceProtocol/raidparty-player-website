@@ -29,14 +29,41 @@ module.exports = {
 	*/
 	async getHomePage (req, res) {
 		
-		let totalSubscribers = await Subscribers.count();
-		
-		return res.view('public/home', {
-			layout: 'public/layout',
-			title: 'RaidParty, Play Share and Earn FORCE',
-			metaDescription: 'Play Share and Earn while playing amazing games you\'ll love.',
-			totalSubscribers: totalSubscribers
-		});
+		try{
+			let reqOptions = {
+				uri: sails.config.API_HOST + '/players/count',
+				headers: {
+					'User-Agent': 'Request-Promise'
+				},
+				json: true
+			};
+			
+			let totalSubscribers = await request(reqOptions);
+			
+			if(req.param('subscribe')){
+				req.addFlash('success', sails.__("Thank you for confirming your subscription. You are now subscribed to RaidParty."));
+			}
+			
+			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+			
+			return res.view('public/home', {
+				layout: 'public/layout',
+				title: sails.__("RaidParty, Play Share and Earn FORCE"),
+				metaDescription: 'Play Share and Earn while playing amazing games you\'ll love.',
+				totalSubscribers: totalSubscribers,
+				recaptchaForm:Recaptcha.toHtml()
+			});
+		}catch(err){
+			sails.log.error("getHomePage failed: ",err);
+			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+			return res.view('public/home', {
+				layout: 'public/layout',
+				title: sails.__("RaidParty, Play Share and Earn FORCE"),
+				metaDescription: 'Play Share and Earn while playing amazing games you\'ll love.',
+				totalSubscribers: 25469,
+				recaptchaForm:Recaptcha.toHtml()
+			});
+		}
 	},
 	
 	
@@ -123,21 +150,111 @@ module.exports = {
 	
 	
 	/**
+	* Return the join landing page
+	*/
+	getJoinPage: function (req, res) {
+		var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+		return res.view('public/join', {
+			layout: 'public/layout',
+			title: 'Claim your seat in the free-to-play RaidParty competition for a chance to win over 16ETH!',
+			metaDescription: 'Enter our free-to-play competition for a chance to win over 16ETH!',
+			recaptchaForm:Recaptcha.toHtml()
+		});
+	},
+	
+	
+	/**
+	* Submit the join page
+	*/
+	async postJoinPage(req, res) {
+	
+		let firstName = req.param('firstName'),
+		lastName = req.param('lastName'),
+		email = req.param('email'),
+		password = req.param('password'),
+		passwordCheck = req.param('passwordCheck'),
+		locale = req.getLocale(),
+		errors = [];
+		
+		
+		// Confirm send data is correct
+		if(!firstName){
+			errors.push('Your first name must be entered');
+		}
+		
+		if(!lastName){
+			errors.push('Your surname must be entered');
+		}
+		
+		if(!email){
+			errors.push('You must enter your email');
+		}
+		
+		if(!password){
+			errors.push('You must enter a valid password');
+		}
+		
+		if(password != passwordCheck){
+			errors.push('Your passwords do not match');
+		}
+		
+		if(errors.length > 0){
+			req.addFlash('errors', errors);
+			return res.redirect("/join");
+		}
+		
+		// Confirm recapture success
+		var data = {
+			remoteip: req.connection.remoteAddress,
+			response: req.param("g-recaptcha-response"),
+			secret: RECAPTCHA_PRIVATE_KEY
+		};
+
+		var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, data);
+		
+		recaptcha.verify(function (success, error_code) {
+
+			if (success) {
+				request({
+					method: 'POST',
+					uri: sails.config.API_HOST + '/app/player',
+					json: true,
+					body: {
+						firstName:firstName,
+						lastName:lastName,
+						email:email,
+						password:password,
+						locale:locale
+					}
+				}).then((rsp)=> {
+					sails.log.debug("Post Join Page response: ",rsp);
+					req.addFlash('success', 'Well done! You have claimed your space to be entered into the competition');
+					return res.redirect("/join");
+				}).catch(err=> {
+					sails.log.debug('login token error: ', err);
+					return res.redirect("/join");
+				});
+				
+			} else {
+				sails.log.debug("error code:", error_code);
+				req.addFlash('errors', 'There was a problem subscribing you due to a technical issue.');
+				return res.redirect("/join");
+			}
+		});
+	},
+	
+	
+	
+	/**
 	* Subscribe to maillist
 	*/
 	postSubscribe: function (req, res) {
 	
 		var email = req.param("email"),
-			referrerId = '',
 			locale = req.getLocale();
 			
 		sails.log.debug("locale is:",locale);
-
-		// Check if this is referral ID by cookie
-		if (typeof req.cookies !== 'undefined' && typeof req.cookies.track_id !== 'undefined') {
-			referrerId = req.cookies.track_id;
-		}
-
+		
 		// Confirm recapture success
 		var data = {
 			remoteip: req.connection.remoteAddress,
@@ -150,24 +267,24 @@ module.exports = {
 		recaptcha.verify(function (success, error_code) {
 
 			if (success) {
-				req.addFlash('success', 'Thank you for subscribing to RaidParty!');
-				
-				var gdprLog = "User of email " + email + " subscribed to RaidParty from raidparty.io on " + new Date() + "<br />";
-				
-				Subscribers.create({email:email,accountStatus:1,gdprLog:gdprLog,locale:locale}).exec(function(err,created){
-					if(err || !created){
-						sails.log.error("postSubscribe: failed to add subscriber to entry: ",err);
+			
+				request({
+					method: 'POST',
+					uri: sails.config.API_HOST + '/app/subscribe',
+					json: true,
+					body: {
+						email:email,
+						locale:locale
 					}
+				}).then((rsp)=> {
+					sails.log.debug("Post Subscribe response: ",rsp);
+					req.addFlash('success', 'You are now subscribed to RaidParty!');
+					return res.redirect("/");
+				}).catch(err=> {
+					sails.log.debug('Post Subscribe Err: ', err);
+					return res.redirect("/");
 				});
 				
-				/** Add to normal subscriber list **/
-				MailchimpService.addSubscriber("bb2455ea6e", email, "", "", "pending",locale).then(function(addResponse){
-					
-				}).catch(function(err) {
-					sails.log.debug("new subscriber not added due to error: ", err);
-				});
-				
-				return res.redirect("/");
 			} else {
 				console.log("error code:", error_code);
 				req.addFlash('errors', 'There was a problem subscribing you due to a technical issue.');

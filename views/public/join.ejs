@@ -1,0 +1,52 @@
+<%- partial('./partials/header.ejs') %>
+
+
+<section class="banner-area text-center" id="intro">
+    <article class="container text-center mid-blocks">
+		<h1 class="wow fadeIn" data-wow-delay="0.1s">Enter free to play game to win over 16 ETH instantly!</h1>
+	</article>
+</section>
+
+<main class="container text-center mid-blocks">
+	<p>THIS IS THE LANDING PAGE</p>
+	
+	
+	<div class="join-form">
+		<h3>Claim Your Free Entry</h3>
+		<form method="post" action="">
+		
+			<div class="form-group">
+				<label>First Name</label>
+				<input class="form-input" type="text" name="firstName" value="" />
+			</div>
+			
+			<div class="form-group">
+				<label>Surname</label>
+				<input class="form-input" type="text" name="lastName" value="" />
+			</div>
+			
+			<div class="form-group">
+				<label>Email</label>
+				<input class="form-input" type="text" name="email" value="" />
+			</div>
+			
+			<div class="form-group">
+				<label>Enter Password</label>
+				<input class="form-input" type="password" name="password" value="" />
+			</div>
+			
+			<div class="form-group">
+				<label>Re-type Password</label>
+				<input class="form-input" type="password" name="passwordCheck" value="" />
+			</div>
+			
+			<%- recaptchaForm %>
+			
+			<div class="form-group">
+				<button class="btn btn-primary">Claim Seat</button>
+			</div>
+		</form>
+	</div>
+</main>
+
+<%- partial('./partials/footer.ejs') %>
