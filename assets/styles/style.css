@@ -431,7 +431,7 @@ p {
 	text-decoration: none;
 }
 
-.btn-cta:hover,.btn-cta:active,.btn-cta:visited {
+.btn-cta:hover,.btn-cta:active,.btn-cta:visited,.btn-cta:focus {
 	color: #fff;
 	background: #aa4fea;
 	background-image: -webkit-linear-gradient(top, #aa4fea, #57c6f4);

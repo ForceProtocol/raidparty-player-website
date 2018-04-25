@@ -30,7 +30,47 @@
 		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!") %></h1>
 		<h2 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left",totalSpaces,totalSpaces.toLocaleString()) %></h2>
 		<br />
-		<a class="btn btn-cta btn-lg" href="/join"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; Claim your entry &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
+		<button class="btn btn-cta btn-lg display-join-form"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; Claim your entry &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+		
+		<div class="container">
+			<div class="hide-join-form col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1" style="display:none;">
+				<br />
+				<form class="form text-left" method="post" action="/join">
+					<p><%- __("Fill out the form below to reserve your space.") %></p><br />
+					<div class="row form-group">
+						<div class="col-lg-6 col-md-6">
+							<label>First Name</label>
+							<input class="form-control" type="text" name="firstName" value="" />
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<label>Surname</label>
+							<input class="form-control" type="text" name="lastName" value="" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label>Email</label>
+						<input class="form-control" type="text" name="email" value="" />
+					</div>
+					
+					<div class="form-group">
+						<label>Enter Password</label>
+						<input class="form-control" type="password" name="password" value="" />
+					</div>
+					
+					<div class="form-group">
+						<label>Re-type Password</label>
+						<input class="form-control" type="password" name="passwordCheck" value="" />
+					</div>
+					
+					<%- recaptchaForm %>
+					
+					<div class="form-group">
+						<button class="btn btn-cta btn-block btn-lg">Join Contest &raquo;</button>
+					</div>
+				</form>
+			</div>
+		</div>
 		
 		<!-- SHOW THIS WHEN LIVE ON APP STORES
         <ul class="list-inline app-btns-block">
@@ -48,7 +88,7 @@
                 </div>
                 <div class="col-sm-4 col-md-4 wow fadeInUp" data-wow-delay="0.4s">
                     <img src="images/icons/award-icon.png" alt="intro-icon">
-                    <p><span>3,000,000</span> <br> FORCE available</p>
+                    <p><span>3,000,000</span><br /> FORCE available</p>
                 </div>
                 <div class="col-sm-4 col-md-4 b-none wow fadeInUp" data-wow-delay="0.5s">
                     <img src="images/icons/pacman-icon.png" alt="intro-icon">
@@ -65,7 +105,7 @@
         	<li class="wow animated fadeInLeft" data-wow-delay="0.2s"><img src="images/footer-app-icon.png" alt="raidparty"></li>
             <li class="text-left wow animated fadeInRight" data-wow-delay="0.4s">
             	<h2 class="white">
-                	Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today.
+                	<%- __("Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today.") %>
                 </h2>
                 <ul class="list-inline app-btns-block">
                     <li class="paddingl-none"><a href="/"><img src="images/google-play-btn.png" alt="google-store"></a></li>

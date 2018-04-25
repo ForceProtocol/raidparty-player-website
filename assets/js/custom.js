@@ -5,6 +5,12 @@ $(document).ready(function(){
 		$('.spaces-left').attr("data-spaces-left-int",spacesLeft);
 	}
 	
+	/** Toggle the join form on homepage */
+	$('body').on('click','.display-join-form',function(){
+		$('.hide-join-form').slideToggle("medium");
+	});
+	
+	
 	/** SOCKET REQUESTS */
 	
 	// A new player joined
