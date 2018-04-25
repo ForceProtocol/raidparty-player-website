@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="/styles/bootstrap.css">
         <link rel="stylesheet" href="/styles/fontawesome.css">
         <link rel="stylesheet" href="/styles/importer.css">
+        <link rel="stylesheet" href="/styles/odometer-theme-minimal.css">
         <link rel="stylesheet" href="/styles/style.css">
         <!--STYLES END-->
 		
@@ -54,24 +55,38 @@
     <%- body %>
 
 
-
+		<script>
+			<% if(typeof spacesLeft !== 'undefined'){ %>
+				var spacesLeft = <%- spacesLeft %>;
+			<% }else{ %>
+				var spacesLeft = 101,300;
+			<% } %>
+		</script>
+	
+	
 		<!--SCRIPTS-->
 		<script src="/js/dependencies/sails.io.js"></script>
 		<script src="/js/jquery-3.2.1.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/custom.js"></script>
 		<script src="/js/easing.js"></script>
 		<script src="/js/gotop.js"></script>
 		<script src="/js/html5shiv.min.js"></script>
 		<script src="/js/modernizr.js"></script>
+		<script src="/js/odometer.min.js"></script>
 		<script src="/js/parallax.js"></script>
 		<script src="/js/preload.js"></script>
 		<script src="/js/respond.min.js"></script>
 		<script src="/js/wow.js"></script>
 		<!--SCRIPTS END-->
+		
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 
 		
 		<script type="text/javascript">
-		
+			// Socket Connections
+			io.sails.url = "<%- sails.config.API_HOST %>";
+			
 			<!--
 			if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
 			  var msViewportStyle = document.createElement('style');

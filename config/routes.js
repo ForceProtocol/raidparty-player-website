@@ -12,6 +12,7 @@ module.exports.routes = {
 	
 	/** Pre Join Landing Page **/
 	'GET /join': 'PagesController.getJoinPage',
+	'GET /join-success': 'PagesController.getJoinSuccessPage',
 	'POST /join': 'PagesController.postJoinPage',
 	'POST /subscribe': 'PagesController.postSubscribe',
 };

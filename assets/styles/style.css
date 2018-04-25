@@ -335,6 +335,7 @@ body {
 	font-weight: 400;
 	color: #486F73;
 	overflow-x: hidden;
+	font-size: 14px;
 }
 html, body {
 	min-height: 100%;
@@ -387,22 +388,16 @@ h2 span sup {
 	font-weight: 300;
 	font-size: 23px;
 }
-p {
-	font-size: 24px;
-	font-weight: 300;
-	line-height: 1.43em;
-	color: #486F73;
-}
-p span {
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 600;
-}
+
 .paddingl-none {
 	padding-left: 0px !important;
 }
 h3 {
 	font-size: 2em;
 	margin: 12px 0 8px 0;
+}
+p {
+	line-height: 1.6em;
 }
 #wrap {
 	min-height: 100%;
@@ -411,7 +406,51 @@ h3 {
 	padding-bottom: 80px;
 	/* this needs to be bigger than footer height*/
 }
+
+.btn-block {
+	margin: 8px 0;
+}
 /******* Common Element CSS End *********/
+
+/**** BUTTONS ****/
+.btn-cta {
+	margin: 12px 0;
+	background: #57c6f4;
+	background-image: -webkit-linear-gradient(top, #57c6f4, #aa4fea);
+	background-image: -moz-linear-gradient(top, #57c6f4, #aa4fea);
+	background-image: -ms-linear-gradient(top, #57c6f4, #aa4fea);
+	background-image: -o-linear-gradient(top, #57c6f4, #aa4fea);
+	background-image: linear-gradient(to bottom, #57c6f4, #aa4fea);
+	-webkit-border-radius: 15;
+	-moz-border-radius: 15;
+	border-radius: 15px;
+	text-shadow: 2px 1px 5px #4d4d4d;
+	color: #ffffff;
+	font-size: 19px;
+	padding: 12px 25px 12px 25px;
+	text-decoration: none;
+}
+
+.btn-cta:hover,.btn-cta:active,.btn-cta:visited {
+	color: #fff;
+	background: #aa4fea;
+	background-image: -webkit-linear-gradient(top, #aa4fea, #57c6f4);
+	background-image: -moz-linear-gradient(top, #aa4fea, #57c6f4);
+	background-image: -ms-linear-gradient(top, #aa4fea, #57c6f4);
+	background-image: -o-linear-gradient(top, #aa4fea, #57c6f4);
+	background-image: linear-gradient(to bottom, #aa4fea, #57c6f4);
+	text-decoration: none;
+}
+
+/**** HEADINGS / TITLES ****/
+h2.sub-heading {
+	font-size: 1.8em;
+}
+.underline-strong {
+	font-weight: 400;
+	border-bottom: 1px solid #486F73;
+	padding-bottom: 3px;
+}
 
 /******* Header Section CSS Start *******/
 
@@ -816,6 +855,12 @@ article.instruction-item p {
 	color: #000000;
 	text-decoration: none;
 }
+
+.join-form {
+	margin: 0 auto;
+	width: 650px;
+}
+
 /*Media Queries*/
 
 @media (min-width: 992px) and (max-width: 1200px) {

@@ -1,16 +1,36 @@
 <%- partial('./partials/header.ejs') %>
 
-
+		
 <section class="banner-area text-center" id="intro">
 	<article class="banner-data">
+	
+		<% if(flash.has('errors')){ %>
+		<br /><br />
+		<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('errors').forEach(function (message) { %>
+			<p class="error"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+		<% if(flash.has('success')){ %>
+		<br /><br />
+		<div class="alert alert-success col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('success').forEach(function (message) { %>
+			<p class="success"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+
     	<div class="banner-logo wow fadeInDown"><img src="images/banner-logo.png" alt="banner-logo"></div>
 		
 		<br />
 		
-		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<strong>%s</strong> spaces left out of <strong>%s</strong>",spacesLeft.toLocaleString(),totalSpaces.toLocaleString()) %></h1>
-		<p class="wow fadeIn" data-wow-delay="0.2s">Over <strong>16 ETH</strong> available to <strong>win</strong> for playing free to play games!</p>
+		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!") %></h1>
+		<h2 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left",totalSpaces,totalSpaces.toLocaleString()) %></h2>
 		<br />
-		<a class="btn btn-success btn-lg" href="/join">Claim your space &raquo;</a>
+		<a class="btn btn-cta btn-lg" href="/join"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; Claim your entry &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
 		
 		<!-- SHOW THIS WHEN LIVE ON APP STORES
         <ul class="list-inline app-btns-block">
@@ -24,7 +44,7 @@
             <article class="mid-3-blocks clearfix">
                 <div class="col-sm-4 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
                     <img src="images/icons/gamepad-icon.png" alt="intro-icon">
-                    <p><%- __("<span>Only %s</span><br />Spaces Left",spacesLeft.toLocaleString()) %></p>
+                    <p><%- __("<span data-spaces-left-int='%s' class='spaces-left odometer'>%s</span><br />spaces left",spacesLeft,spacesLeft.toLocaleString()) %></p>
                 </div>
                 <div class="col-sm-4 col-md-4 wow fadeInUp" data-wow-delay="0.4s">
                     <img src="images/icons/award-icon.png" alt="intro-icon">
@@ -32,7 +52,7 @@
                 </div>
                 <div class="col-sm-4 col-md-4 b-none wow fadeInUp" data-wow-delay="0.5s">
                     <img src="images/icons/pacman-icon.png" alt="intro-icon">
-                    <p><span>over 418 <small>ETH</small></span> <br> available to win</p>
+                    <p><span>50+ <small>ETH</small></span><br/> available to win</p>
                 </div>
             </article>
         </article>

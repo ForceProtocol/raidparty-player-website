@@ -9,8 +9,8 @@ const request = require('request-promise'),
 	Recaptcha = require('recaptcha-v2').Recaptcha,
 	fs = require('fs');
 
-var RECAPTCHA_PUBLIC_KEY  = '6LejfD8UAAAAAIuIZcStpaeaazsQH5brs32sDWza',
-    RECAPTCHA_PRIVATE_KEY = '6LejfD8UAAAAAKmBbSB5Jss5CiQQ5fOhh1QRvCfD';
+var RECAPTCHA_PUBLIC_KEY  = '6LfCVFUUAAAAAH1IxJRQDIn_F2PQ5mmijN-LJIGA',
+    RECAPTCHA_PRIVATE_KEY = '6LfCVFUUAAAAAJGxUQksgqpheaEdjJSRpGiT4t-f';
 
 Recaptcha.prototype.toHTML = function(callbackFunction) {
 
@@ -164,14 +164,50 @@ module.exports = {
 	/**
 	* Return the join landing page
 	*/
-	getJoinPage: function (req, res) {
-		var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
-		return res.view('public/join', {
-			layout: 'public/layout',
-			title: 'Claim your seat in the free-to-play RaidParty competition for a chance to win over 16ETH!',
-			metaDescription: 'Enter our free-to-play competition for a chance to win over 16ETH!',
-			recaptchaForm:recaptcha.toHTML()
-		});
+	async getJoinPage (req, res) {
+	
+		try {
+			let reqOptions = {
+					uri: sails.config.API_HOST + '/players/count',
+					headers: {
+						'User-Agent': 'Request-Promise'
+					},
+					json: true
+				};
+				
+				let totalPlayers = await request(reqOptions),
+				totalSpaces = 150000,
+				spacesLeft;
+				
+				spacesLeft = totalSpaces - totalPlayers.totalPlayers;
+				
+				if(spacesLeft < 0){
+					spacesLeft = 0;
+				}
+				
+			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+			return res.view('public/join', {
+				layout: 'public/layout',
+				title: sails.__("Claim your seat in the free-to-play RaidParty competition for a chance to win over 50ETH!"),
+				metaDescription: sails.__("Enter our free-to-play competition for a chance to win over 50ETH!"),
+				totalSpaces: totalSpaces,
+				totalPlayers: totalPlayers.totalPlayers,
+				spacesLeft: spacesLeft,
+				recaptchaForm:recaptcha.toHTML()
+			});
+		}catch(err){
+			sails.log.error("getJoinPage failed: ",err);
+			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+			return res.view('public/join', {
+				layout: 'public/layout',
+				title: sails.__("Claim your seat in the free-to-play RaidParty competition for a chance to win over 50ETH!"),
+				metaDescription: sails.__("Enter our free-to-play competition for a chance to win over 50ETH!"),
+				totalSpaces: 150000,
+				totalPlayers: 31745,
+				spacesLeft: 118255,
+				recaptchaForm:recaptcha.toHTML()
+			});
+		}
 	},
 	
 	
@@ -236,14 +272,20 @@ module.exports = {
 						lastName:lastName,
 						email:email,
 						password:password,
-						locale:locale
+						locale:locale,
+						device_type: 'unknown'
 					}
 				}).then((rsp)=> {
-					sails.log.debug("Post Join Page response: ",rsp);
+					sails.log.debug("Post Join Page response was not an error");
 					req.addFlash('success', 'Well done! You have claimed your space to be entered into the competition');
-					return res.redirect("/join");
+					return res.redirect("/join-success");
 				}).catch(err=> {
-					sails.log.debug('login token error: ', err);
+					if(typeof err.response.body.err != 'undefined'){
+						req.addFlash('errors', err.response.body.err);
+					}else{
+						req.addFlash('errors',"There was a server error. Please try again later.");
+					}
+					sails.log.debug('Post Join Submit was an error');
 					return res.redirect("/join");
 				});
 				
@@ -255,6 +297,17 @@ module.exports = {
 		});
 	},
 	
+	
+	/**
+	* Return the join success landing page
+	*/
+	getJoinSuccessPage: function (req, res) {
+		return res.view('public/join-success', {
+			layout: 'public/layout',
+			title: 'Congratulations! Your space has been reserved',
+			metaDescription: 'Enter our free-to-play competition for a chance to win over 16ETH!',
+		});
+	},
 	
 	
 	/**
