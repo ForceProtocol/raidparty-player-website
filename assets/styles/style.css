@@ -442,6 +442,19 @@ p {
 	text-decoration: none;
 }
 
+
+/****** LISTS ****/
+ol { counter-reset: item }
+li { display: block }
+ol li:before { content: counters(item, ".") " "; counter-increment: item }
+ol.policy-list {
+	margin: 8px 0;
+}
+ol.policy-list ol {
+	margin: 8px 0;
+	padding-left: 20px;
+}
+
 /**** HEADINGS / TITLES ****/
 h2.sub-heading {
 	font-size: 1.8em;

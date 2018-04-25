@@ -101,6 +101,18 @@ module.exports = {
 	
 	
 	/**
+	* Return the privacy policy page
+	*/
+	getCookiePolicyPage: function (req, res) {
+		return res.view('public/cookie-policy', {
+			layout: 'public/layout',
+			title: 'RaidParty Cookie Policy',
+			metaDescription: ''
+		});
+	},
+	
+	
+	/**
 	* Return the players terms of service
 	*/
 	getTermsOfService: function (req, res) {
@@ -276,7 +288,6 @@ module.exports = {
 						device_type: 'unknown'
 					}
 				}).then((rsp)=> {
-					sails.log.debug("Post Join Page response was not an error");
 					req.addFlash('success', 'Well done! You have claimed your space to be entered into the competition');
 					return res.redirect("/join-success");
 				}).catch(err=> {
@@ -342,7 +353,6 @@ module.exports = {
 						locale:locale
 					}
 				}).then((rsp)=> {
-					sails.log.debug("Post Subscribe response: ",rsp);
 					req.addFlash('success', 'You are now subscribed to RaidParty!');
 					return res.redirect("/");
 				}).catch(err=> {

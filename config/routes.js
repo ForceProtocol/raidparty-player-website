@@ -4,6 +4,7 @@ module.exports.routes = {
 	'GET /': 'PagesController.getHomePage',
 	'GET /terms-of-service': 'PagesController.getTermsOfService',
 	'GET /privacy': 'PagesController.getPrivacyPage',
+	'GET /cookie-policy': 'PagesController.getCookiePolicyPage',
 	'GET /privacy-policy.html': 'PagesController.redirectPrivacy',
 	'GET /developer': 'PagesController.getDeveloperHomePage',
 	'GET /developer-terms': 'PagesController.getDeveloperTerms',
