@@ -52,6 +52,10 @@ module.exports = {
 				req.addFlash('success', sails.__("Thank you for confirming your subscription. You are now subscribed to RaidParty."));
 			}
 			
+			
+			let games = [];
+			
+			
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
 			
 			return res.view('public/home', {
@@ -61,6 +65,7 @@ module.exports = {
 				totalSpaces: totalSpaces,
 				totalPlayers: totalPlayers.totalPlayers,
 				spacesLeft: spacesLeft,
+				games:games,
 				recaptchaForm:recaptcha.toHTML()
 			});
 		}catch(err){
@@ -73,6 +78,7 @@ module.exports = {
 				totalSpaces: 150000,
 				totalPlayers: 31745,
 				spacesLeft: 118255,
+				games:[],
 				recaptchaForm:recaptcha.toHTML()
 			});
 		}

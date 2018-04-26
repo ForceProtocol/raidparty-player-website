@@ -33,7 +33,7 @@
 		<button class="btn btn-cta btn-lg display-join-form"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; Enter Free Contest &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
 		
 		<div class="container">
-			<div class="hide-join-form col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1" style="display:none;">
+			<div class="hide-join-form col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-8" style="display:none;">
 				<br />
 				<form class="form text-left" method="post" action="/join">
 					<p><%- __("Fill out the form below to reserve your space.") %></p><br />
@@ -79,6 +79,345 @@
         </ul>-->
 		
     </article>
+	
+	<br />
+	<br />
+	
+	
+	<article class="banner-data">
+		<div class="wow fadeInUp game-list" style="visibility: visible; animation-name: fadeInUp;">
+			<div class="container">
+			
+				<div class="row">
+				
+					<% games.forEach(function(game){ %>
+						<div class="<% if(game.featured){ %>col-md-8<% }else{ %>col-md-4<% } %> col-sm-6">
+							<div class="game-holder <% if(game.jackpot.length > 0){ %>has-jackpot<% } %>">
+								<div class="game-image minecraft">
+									<img src="/images/games/banners/<%- game.bannerContent %>" alt="" />
+									<div class="days-left"><%- game.timeLeft %><% if(game.hasActiveCampaign){ %><img src="/images/icons/active-dot.png" alt="active" /><% } %></div>
+								</div>
+								<div class="jackpot-prize">
+									<img src="images/jackpot-icon.svg" alt="jackpot-icon">
+									Jackpot Prize : <span><%- game.jackpot %></span>
+								</div>
+								<div class="game-detail">
+									<h1><%- game.title %></h1>
+									<ul class="list-inline">
+										<% if(game.iosGame){ %>
+										<li>
+											<a href="<%- game.platform.ios.link %>">PLAY ON IOS</a>
+										</li>
+										<% } %>
+										<% if(game.androidGame){ %>
+										<li>
+											<a href="<%- game.platform.android.link %>">PLAY ON ANDROID</a>
+										</li>
+										<% } %>
+										<li>
+											<a href="#" data-toggle="modal" data-target="#rules">RULES</a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					<% }); %>
+					
+				</div>
+			</div>
+		</div>
+	</article>
+	
+	<article class="banner-data">
+		<div class="wow fadeInUp game-list" style="visibility: visible; animation-name: fadeInUp;">
+			<div class="container">
+			
+				<div class="row">
+				
+					<div class="col-md-8 col-sm-6">
+						<div class="game-holder has-jackpot">
+							<div class="game-image minecraft">
+								<div class="days-left"><span>5</span> days left !</div>
+							</div>
+							<div class="jackpot-prize">
+								<img src="images/jackpot-icon.svg" alt="jackpot-icon">
+								Jackpot Prize : <span>10 ETH</span>
+							</div>
+							<div class="game-detail">
+								<h1>Minecraft</h1>
+								<ul class="list-inline">
+									<li>
+										<a href="#">PLAY NOW</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="modal" data-target="#rules">RULES</a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-sm-6">
+						<div class="game-holder has-jackpot">
+							<div class="game-image mario">
+								<div class="days-left"><span>3</span> days left !</div>
+							</div>
+							<div class="jackpot-prize">
+								<img src="images/jackpot-icon.svg" alt="jackpot-icon">
+								Jackpot Prize : <span>10 ETH</span>
+							</div>
+							<div class="game-detail">
+								<h1>Mariokart</h1>
+								<ul class="list-inline">
+									<li>
+										<a href="#">PLAY NOW</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="modal" data-target="#rules">RULES</a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6">
+						<div class="game-holder has-jackpot">
+							<div class="game-image dota">
+								<div class="days-left"><span>3</span> days left !</div>
+							</div>
+							<div class="jackpot-prize">
+								<img src="images/jackpot-icon.svg" alt="jackpot-icon">
+								Jackpot Prize : <span>10 ETH</span>
+							</div>
+							<div class="game-detail">
+								<h1>Dota 2</h1>
+								<ul class="list-inline">
+									<li>
+										<a href="#">PLAY NOW</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="modal" data-target="#rules">RULES</a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6">
+						<div class="game-holder">
+							<div class="game-image fortnite">
+								<div class="days-left"><span>3</span> days left !</div>
+							</div>
+							<div class="game-detail">
+								<h1>Fortnite</h1>
+								<ul class="list-inline">
+									<li>
+										<a href="#">PLAY NOW</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="modal" data-target="#rules">RULES</a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6">
+						<div class="game-holder">
+							<div class="game-image aov">
+								<div class="days-left"><span>3</span> days left !</div>
+							</div>
+							<div class="game-detail">
+								<h1>AOV</h1>
+								<ul class="list-inline">
+									<li>
+										<a href="#">PLAY NOW</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="modal" data-target="#rules">RULES</a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!--
+		<div class="wow fadeInLeft our-winners" style="visibility: visible; animation-name: fadeInLeft;">
+			<div class="container" role="toolbar">
+				<div class="text-center">
+					<h2>OUR WINNERS</h2>
+				</div>
+				<ul class="list-unstyled winners slick-initialized slick-slider slick-dotted">
+					<div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 4680px; transform: translate3d(-2340px, 0px, 0px);" role="listbox"><li class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style="width: 585px;" tabindex="-1">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/peter.jpg" alt="peter" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style="width: 585px;" tabindex="-1">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/alexa.jpg" alt="alexa" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Alexa</span> Willborough, <span class="location">Slovakia</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide" data-slick-index="0" aria-hidden="true" style="width: 585px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/peter.jpg" alt="peter" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide" data-slick-index="1" aria-hidden="true" style="width: 585px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/alexa.jpg" alt="alexa" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Alexa</span> Willborough, <span class="location">Slovakia</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide slick-current slick-active" data-slick-index="2" aria-hidden="false" style="width: 585px;" tabindex="-1" role="option" aria-describedby="slick-slide01">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/peter.jpg" alt="peter" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide slick-active" data-slick-index="3" aria-hidden="false" style="width: 585px;" tabindex="-1" role="option" aria-describedby="slick-slide01">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/alexa.jpg" alt="alexa" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Alexa</span> Willborough, <span class="location">Slovakia</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" style="width: 585px;" tabindex="-1">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/peter.jpg" alt="peter" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li><li class="slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style="width: 585px;" tabindex="-1">
+						<ul class="list-inline">
+							<li>
+								<div class="winner-profile-image">
+									<img src="images/alexa.jpg" alt="alexa" class="img-circle">
+								</div>
+							</li>
+							<li>
+								<div class="winner-comment">
+									<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+									<div class="profile-detail">
+										<span class="first-name">Alexa</span> Willborough, <span class="location">Slovakia</span>
+									</div>
+									<div class="force-earned">
+										450 FORCE
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li></div></div>
+					
+					
+					
+				<ul class="slick-dots" style="display: block;" role="tablist"><li class="" aria-hidden="true" role="presentation" aria-selected="true" aria-controls="navigation00" id="slick-slide00"><button type="button" data-role="none" role="button" tabindex="0">1</button></li><li aria-hidden="false" role="presentation" aria-selected="false" aria-controls="navigation01" id="slick-slide01" class="slick-active"><button type="button" data-role="none" role="button" tabindex="0">2</button></li></ul></ul>
+			</div>
+		</div>
+		-->
+	
+	</article>
+	
     <article class="container text-center mid-blocks">
 
             <article class="mid-3-blocks clearfix">

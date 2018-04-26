@@ -522,9 +522,6 @@ header nav {
 #intro {
 	padding-top: 125px;
 }
-.mid-3-blocks {
-	padding-top: 120px;
-}
 .mid-3-blocks>div>img {
 	margin-bottom: 65px;
 	height: 150px;
@@ -659,6 +656,106 @@ header nav {
 	vertical-align: middle;
 }
 /******** Middle section CSS End *******/
+
+.game-list .game-image 	{ position: relative; height: 200px; background-repeat: no-repeat; background-size: cover; border-radius: 12px 12px 0 0;}
+.game-list .game-image.minecraft 	{ background-image: url('../images/minecraft.jpg'); }
+.game-list .game-image.mario 		{ background-image: url('../images/mario.jpg'); }
+.game-list .game-image.fortnite 	{ background-image: url('../images/fortnite.jpg'); }
+.game-list .game-image.dota 		{ background-image: url('../images/dota.jpg'); }
+.game-list .game-image.aov 			{ background-image: url('../images/aov.jpg'); }
+.game-list .game-image::before { display: block; content: ""; height: 100%; width: 100%; position: absolute; top: 0; left: 0; background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); }
+.jackpot-prize span   { font-weight: 600;}
+.jackpot-prize 			{ position: relative; margin: 0 -7px; padding: 11px 11px 11px 70px; text-align: left; z-index: 2; background-color: #FFCA5D; color: #fff; font-size: 20px; line-height: 25px; letter-spacing: 0.5px; font-weight: 400;}
+.jackpot-prize img 		{ position: absolute; top: -16px; left: 0px;}
+.jackpot-prize::before,
+.jackpot-prize::after  	{ content: ""; display: inline-block; height: 10px; width: 10px;  background-repeat: no-repeat; position: absolute;  z-index: 1;}
+.jackpot-prize::before  { background-image: url('../images/prize-earned-before.png'); bottom: -10px; left: -1px; }
+.jackpot-prize::after   { background-image: url('../images/prize-earned-after.png'); bottom: -10px; right: -2px; }
+.game-detail 			{ padding: 45px 16px 25px;}
+.game-detail > ul > li > a { display: block; padding: 10px 20px; color: #486F73; font-size: 14px; line-height: 20px; font-weight: 600; border: 2px solid #486F73; border-radius: 25px;}
+.game-detail > ul > li > a:hover,
+.game-detail > ul > li > a:focus { background-color: #486F73; color: #ffffff; text-decoration: none; }
+.game-detail h1 		{ margin: 0; color: #4A4A4A; font-weight: 600; }
+.game-detail .list-inline 	{ margin-top: 10px;}
+.game-holder 				{ margin-bottom: 48px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.09);}
+.has-jackpot .game-detail 	{ margin-top: -40px;}
+.rules-modal .modal-header 	{ border: none;}
+.rules-modal .modal-header .modal-title { font-size: 28px; line-height: 35px; color: #486F73; text-align: center; font-weight: 400; }
+.rules-modal .modal-title::after { content: ""; display: block; margin: 16px auto 0; height: 4px; width: 240px; background-color: #ebebeb; }
+.rules-modal .modal-body 		{ padding: 0 24px 48px 40px;}
+.rules-modal .modal-body > ol > li { margin-bottom: 5px; font-size: 16px; line-height: 25px; color: #9B9B9B; }
+.rules-modal .close 				{ background-color: #EAEAEA; height: 30px; width: 30px; border-radius: 50%; color: #fff; font-size: 30px; font-weight: 100; opacity: 1; filter: none; text-shadow: none; position: absolute; top: 13px; right: 18px;}
+.rules-modal .close:hover 			{ background-color: #486F73; }
+.our-winners 						{ margin: 55px 0 75px;}
+.winners.slick-slider 				{ margin: 0; padding: 60px 0 100px;}
+.our-winners h2 					{ color: #486F73; font-weight: 600;}
+.our-winners h2::after 				{ content: ""; display: block; margin: 10px auto 0; height: 4px; width: 160px; background-color: #486F73; }
+.winner-profile-image .img-circle 	{ border: 6px solid #486F73; box-shadow: 0 4px 8px rgba(72,111,115,0.32); height: 165px; width: 165px;}
+.profile-detail 					{ margin-top: 16px; font-size: 18px; line-height: 25px; letter-spacing: 0.45px; font-weight: 400;}
+.first-name 						{ text-transform: uppercase; font-weight: 700;}
+.location 							{ color: #9B9B9B; font-weight: 100;}
+.winner-comment 					{ text-align: left; }
+.winner-comment p 					{ font-size: 16px; color: #4A4A4A; line-height: 23px; letter-spacing: 0.4px; font-weight: 400;}
+.winners .list-inline > li 			{ vertical-align: middle;}
+.winners > li 						{ width: calc(50% - 2px); display: inline-block; vertical-align: top;}
+.winners .list-inline > li:first-child { width: 185px;}
+.winners .list-inline > li 			{ width: calc(100% - 188px);}
+.force-earned 						{ font-size: 16px; line-height: 23px; color: #4A4A4A; letter-spacing: 0.4px;}
+.slick-dots li button 				{ border: 4px solid #486F73; border-radius: 50%;}
+.slick-dots li.slick-active button,
+.slick-dots li button:hover 	 	{ background-color: #486F73; box-shadow: 0 4px 8px rgba(72,111,115,0.32);}
+.slick-dots li button::before 				{ content: none; }
+/******* Banner section CSS End *********/
+
+/******* Middle section CSS Start ******/
+.newsletter-section { padding: 80px 0 70px; background-color: #f5f5f5; }
+.newsletter-section h1 { margin: 0 0 10px; font-size: 48px; line-height: 60px; font-weight: 300; color: #486F73 ;}
+.newsletter-section h1 span { font-weight: 600; }
+.newsletter-section p 		{ margin: 0 auto 40px; width: 49%; font-size: 20px; font-weight: 300; line-height: 27px; }
+.newsletter-section .input-group 	{ border-radius: 32px; border: 2px solid #D8D8D8; }
+.newsletter-section .form-control 	{ padding: 20px 22px 20px 0; background-color: transparent; border: none; box-shadow: none; height: auto; font-size: 18px; line-height: 25px; color: #486F73; display: inline-block; width: calc(100% - 53px) !important; float: none;}
+.newsletter-section .form-control::-moz-placeholder { color: #C0C0C0; opacity: 1; }
+.newsletter-section .form-control::-webkit-input-placeholder { color: #C0C0C0; opacity: 1; }
+.newsletter-section .form-control:-ms-input-placeholder { color: #C0C0C0; opacity: 1; }
+.newsletter-section .form-control::-o-placeholder { color: #C0C0C0; opacity: 1; }
+.newsletter-section .input-group:focus-within  	{ border-color: #486F73; }
+.newsletter-section .input-group:focus-within .input-group-addon { background-position: bottom center; transition: background 0.5s ease-in-out;}
+.newsletter-section .input-group-addon 				{ background: url('../images/mail-sprite.svg') no-repeat; border: none; height: 20px; width: 50px !important; padding: 0; background-position: top center; background-size: 26px auto; display: inline-block;}
+.newsletter-section .btn 				{ margin-left: 16px; padding: 20px 30px; font-size: 22px; line-height: 25px; color: #ffffff; font-weight: 600; background-color: #486F73; border-radius: 32px;}
+.newsletter-section .btn:hover 			{ background-color: #4a4a4a; }
+#intro { padding-top: 125px;}
+.mid-3-blocks > div > img { margin-bottom: 65px; height: 150px;}
+.mid-3-blocks > div { padding-top: 50px; padding-bottom: 50px; border-right: solid 2px #f6f5f5;}
+.mid-3-blocks > div.b-none { border-right: solid 2px #fff !important;}
+.mid-3-blocks p span 		{ font-size: 36px; line-height: 44px; }
+.content-block { padding-top: 80px; position: relative; overflow: hidden;}
+.white-block { padding-top: 50px; position: relative;}
+.content-block figcaption > div { transform: translateY(150%);}
+.info-block-1 { background:url(../images/content-block-bg1.jpg) no-repeat; }
+.info-block-3 { background:url(../images/content-block-bg2.jpg) no-repeat;}
+.info-block { background-size: cover; background-attachment: fixed; background-position: center; min-height: 560px;}
+.content-block figure { position: relative;}
+.content-block figcaption > div { width: 85%; text-align: left;}
+.info-block .above-img { position: relative; left: 0; z-index: 10; bottom: -1px;}
+.white-block .above-img { position: relative; z-index: 1;}  
+.white-block figcaption > div { float: right;}
+.white-block h2 		{ color: #486F73; }
+.content-block.white-block 	{ background: url('../images/pattern-bg.svg') no-repeat; background-size: cover; }
+.download-section { padding: 150px 0px; background: #7fa8ab ;
+background: -moz-linear-gradient(-45deg, #7fa8ab 0%, #486f73 100%);
+background: -webkit-linear-gradient(-45deg, #7fa8ab 0%,#486f73 100%);
+background: linear-gradient(135deg, #7fa8ab 0%,#486f73 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7fa8ab', endColorstr='#486f73',GradientType=1 ); position: relative;}
+.download-section::before 	{ content: ""; background-color: #486F73; position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: block; mix-blend-mode: overlay; -webkit-mix-blend-mode: overlay; -ms-mix-blend-mode: overlay; -moz-mix-blend-mode: overlay; -o-mix-blend-mode: overlay;}
+.download-section::after 	{ content: ""; background: url('../images/download-bg.png') no-repeat; background-size: cover; position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: block; }
+.download-info { margin: 50px 0px; position: relative; z-index: 1;}
+.download-section .app-btns-block { margin-top: 40px;}
+.download-section ul.download-info > li { margin: 0px 15px; vertical-align: middle;}
+/******** Middle section CSS End *******/
+
 
 /***** Bottom section CSS Start *******/
 
