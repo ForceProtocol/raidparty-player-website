@@ -30,6 +30,13 @@ module.exports = {
 	async getHomePage (req, res) {
 		
 		try{
+		
+			if(req.param('subscribe')){
+				req.addFlash('success', sails.__("Thank you for confirming your subscription. You are now subscribed to RaidParty."));
+			}
+			
+			let locale = req.getLocale().trim();
+			
 			let reqOptions = {
 				uri: sails.config.API_HOST + '/players/count',
 				headers: {
@@ -48,13 +55,17 @@ module.exports = {
 				spacesLeft = 0;
 			}
 			
-			if(req.param('subscribe')){
-				req.addFlash('success', sails.__("Thank you for confirming your subscription. You are now subscribed to RaidParty."));
-			}
 			
+			// Get list of all active games to display
+			reqOptions = {
+				uri: sails.config.API_HOST + '/games/active?locale=' + locale,
+				headers: {
+					'User-Agent': 'Request-Promise'
+				},
+				json: true
+			};
 			
-			let games = [];
-			
+			let games = await request(reqOptions);
 			
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
 			

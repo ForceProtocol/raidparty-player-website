@@ -45,5 +45,20 @@
 	"<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong><br />spaces left": "<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong><br />spaces left",
 	"<span data-spaces-left-int='%s' class='spaces-left odometer'>%s</span><br />spaces left": "<span data-spaces-left-int='%s' class='spaces-left odometer'>%s</span><br />spaces left",
 	"Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today.": "Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today.",
-	"Fill out the form below to reserve your space.": "Fill out the form below to reserve your space."
+	"Fill out the form below to reserve your space.": "Fill out the form below to reserve your space.",
+	"Rules to Win": "Rules to Win",
+	"First Name": "First Name",
+	"Surname": "Surname",
+	"Email": "Email",
+	"Password": "Password",
+	"Re-type Password": "Re-type Password",
+	"Join Contest": "Join Contest",
+	"Top Prize:": "Top Prize:",
+	"Win <span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!": "Win <span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!",
+	"FORCE available": "FORCE available",
+	"available to win": "available to win",
+	"OUR WINNERS": "OUR WINNERS",
+	"No winners to announce yet!": "No winners to announce yet!",
+	"Will you be one of the first?": "Will you be one of the first?",
+	"Fill out the form below to secure your space.": "Fill out the form below to secure your space."
 }
