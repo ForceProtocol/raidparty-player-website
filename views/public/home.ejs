@@ -1,0 +1,287 @@
+<%- partial('./partials/header.ejs') %>
+
+		
+<section class="banner-area text-center" id="intro">
+	<article class="banner-data">
+	
+		<% if(flash.has('errors')){ %>
+		<br /><br />
+		<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('errors').forEach(function (message) { %>
+			<p class="error"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+		<% if(flash.has('success')){ %>
+		<br /><br />
+		<div class="alert alert-success col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('success').forEach(function (message) { %>
+			<p class="success"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+
+    	<div class="banner-logo wow fadeInDown"><img src="images/banner-logo-beta.png" alt="banner-logo"></div>
+		
+		<br />
+		
+		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("Win <span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!") %></h1>
+		<h2 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left",totalSpaces,totalSpaces.toLocaleString()) %></h2>
+		<br />
+		<button class="btn btn-cta btn-lg display-join-form"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; Enter Free Contest &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+		
+		<div class="container">
+			<div class="hide-join-form col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-8" style="display:none;">
+				<br />
+				<form class="form text-left" method="post" action="/join">
+					<p><%- __("Fill out the form below to secure your space.") %></p><br />
+					<div class="row form-group">
+						<div class="col-lg-6 col-md-6">
+							<label><%- __("First Name") %></label>
+							<input class="form-control" type="text" name="firstName" value="" />
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<label><%- __("Surname") %></label>
+							<input class="form-control" type="text" name="lastName" value="" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label><%- __("Email") %></label>
+						<input class="form-control" type="text" name="email" value="" />
+					</div>
+					
+					<div class="form-group">
+						<label><%- __("Password") %></label>
+						<input class="form-control" type="password" name="password" value="" />
+					</div>
+					
+					<div class="form-group">
+						<label><%- __("Re-type Password") %></label>
+						<input class="form-control" type="password" name="passwordCheck" value="" />
+					</div>
+					
+					<%- recaptchaForm %>
+					
+					<div class="form-group">
+						<br />
+						<p><strong><%- __(`By joining you agree to the <a href="/terms-of-service">terms of service</a> and <a href="/privacy">privacy policy</a> as set out on this website.</strong>`) %></p>
+					</div>
+					
+					<div class="form-group">
+						<button class="btn btn-cta btn-block btn-lg"><%- __("Join Contest") %> &raquo;</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<!-- SHOW THIS WHEN LIVE ON APP STORES
+        <ul class="list-inline app-btns-block">
+            <li class="wow fadeInRight"><a href="/"><img src="/images/google-play-btn.png" alt="google-store"></a></li>
+        	<li class="wow fadeInLeft"><a href="/"><img src="/images/app-store-btn.png" alt="app-store"></a></li>
+        </ul>-->
+		
+    </article>
+	
+	<br />
+	<br />
+	
+	
+	<article class="banner-data">
+		<div class="wow fadeInUp game-list" style="visibility: visible; animation-name: fadeInUp;">
+			<div class="container">
+			
+				<div class="row">
+				
+					<% games.forEach(function(game){ %>
+						<div class="<% if(game.featured){ %>col-lg-8 col-md-8 col-sm-12 col-xs-12<% }else{ %>col-lg-4 col-md-4 col-sm-6 col-xs-12<% } %>">
+							<div class="game-holder <% if(game.jackpot.length > 0){ %>has-jackpot<% } %>">
+								<div class="game-image" style="background-image:url('/images/games/banners/<%- game.bannerContent %>');">
+								
+									<% if(game.isLive){ %>
+										<div class="days-left"><img src="/images/icons/active-dot.png" alt="active" /> &nbsp;Ends <%- game.timeRemaining %></div>
+									<% }else{ %>
+										<div class="days-left"><%- game.timeRemaining %></div>
+									<% } %>
+								</div>
+								<div class="jackpot-prize">
+									<img src="/images/jackpot-icon.svg" alt="jackpot-icon">
+									<%- __("Top Prize:") %> <span><%- game.jackpot %></span>
+								</div>
+								<div class="game-detail">
+									<h2><%- game.title %></h2>
+									<ul class="list-inline">
+										<% game.gamePlatforms.forEach(function(platform){ 
+											if(!platform.active){ return; }
+										%>
+										<li>
+											<a href="<%- platform.link %>"><img src="/images/icons/<% if(platform.type == 'ios'){ %>ios-app-store-icon.png<% }else if(platform.type == 'android'){ %>google-play-store-icon.png<% } %>" alt="" /> 
+											&nbsp; PLAY</a>
+										</li>
+										<% }); %>
+										
+										<li>
+											<a class="rules-button" href="#" data-toggle="modal" data-target="#rules-<%- game.id %>">RULES</a>
+										</li>
+									</ul>
+									
+									<div id="rules-<%- game.id %>" class="modal fade rules-modal in" role="dialog">
+										<div class="modal-dialog">
+											<!-- Modal content-->
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">x</button>
+													<h4 class="modal-title"><%- __("Rules to Win") %></h4>
+												</div>
+												<div class="modal-body">
+													<%- game.rules %>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					<% }); %>
+					
+				</div>
+			</div>
+		</div>
+	</article>
+	
+    <article class="container text-center mid-blocks">
+		<article class="mid-3-blocks clearfix">
+			<div class="col-sm-4 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+				<img src="images/icons/gamepad-icon.png" alt="intro-icon">
+				<p><%- __("<span data-spaces-left-int='%s' class='spaces-left odometer'>%s</span><br />spaces left",spacesLeft,spacesLeft.toLocaleString()) %></p>
+			</div>
+			<div class="col-sm-4 col-md-4 wow fadeInUp" data-wow-delay="0.4s">
+				<img src="images/icons/award-icon.png" alt="intro-icon">
+				<p><span>3,000,000</span><br /> <%- __("FORCE available") %></p>
+			</div>
+			<div class="col-sm-4 col-md-4 b-none wow fadeInUp" data-wow-delay="0.5s">
+				<img src="images/icons/pacman-icon.png" alt="intro-icon">
+				<p><span>50+ <small>ETH</small></span><br/> <%- __("available to win") %></p>
+			</div>
+		</article>
+	</article>
+	
+	<article class="banner-data">
+		<div class="wow fadeInLeft our-winners" style="visibility: visible; animation-name: fadeInLeft;">
+			<div class="container" role="toolbar">
+				<div class="text-center">
+					<h2><%- __("OUR WINNERS") %></h2>
+				</div>
+				
+				<h3><%- __("No winners to announce yet!") %></h3>
+				<h3><%- __("Will you be one of the first?") %></h3>
+				
+				<!--
+				<ul class="list-unstyled winners slick-initialized slick-slider slick-dotted">
+					<div aria-live="polite" class="slick-list draggable">
+						<div class="slick-track" role="listbox">
+							<li class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style="width: 585px;" tabindex="-1">
+								<ul class="list-inline">
+									<li>
+										<div class="winner-profile-image">
+											<img src="images/peter.jpg" alt="peter" class="img-circle">
+										</div>
+									</li>
+									<li>
+										<div class="winner-comment">
+											<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+											<div class="profile-detail">
+												<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
+											</div>
+											<div class="force-earned">
+												450 FORCE
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li class="slick-slide slick-cloned" tabindex="-1">
+								<ul class="list-inline">
+									<li>
+										<div class="winner-profile-image">
+											<img src="images/alexa.jpg" alt="alexa" class="img-circle">
+										</div>
+									</li>
+									<li>
+										<div class="winner-comment">
+											<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+											<div class="profile-detail">
+												<span class="first-name">Alexa</span> Willborough, <span class="location">Slovakia</span>
+											</div>
+											<div class="force-earned">
+												450 FORCE
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li class="slick-slide" data-slick-index="0" aria-hidden="true" style="width: 585px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+								<ul class="list-inline">
+									<li>
+										<div class="winner-profile-image">
+											<img src="images/peter.jpg" alt="peter" class="img-circle">
+										</div>
+									</li>
+									<li>
+										<div class="winner-comment">
+											<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+											<div class="profile-detail">
+												<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
+											</div>
+											<div class="force-earned">
+												450 FORCE
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</div>
+					</div>
+				</ul>
+					
+				<ul class="slick-dots" style="display: block;" role="tablist">
+					<li class="" aria-hidden="true" role="presentation" aria-selected="true" aria-controls="navigation00" id="slick-slide00">
+						<button type="button" data-role="none" role="button" tabindex="0">1</button>
+					</li>
+					<li aria-hidden="false" role="presentation" aria-selected="false" aria-controls="navigation01" id="slick-slide01" class="slick-active">
+						<button type="button" data-role="none" role="button" tabindex="0">2</button>
+					</li>
+				</ul>-->
+				
+			</div>
+		</div>
+	
+	</article>
+	
+</section>
+
+<main>
+    <!--Download Section Start-->
+    <section class="download-section text-center" id="download">
+    	<ul class="list-inline download-info">
+        	<li class="wow animated fadeInLeft" data-wow-delay="0.2s"><img src="images/footer-app-icon.png" alt="raidparty"></li>
+            <li class="text-left wow animated fadeInRight" data-wow-delay="0.4s">
+            	<h2 class="white">
+                	<%- __("Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today.") %>
+                </h2>
+                <ul class="list-inline app-btns-block">
+                    <li class="paddingl-none"><img src="images/google-play-btn-faded.png" alt="google-store"></li>
+                    <li><img src="images/app-store-btn-faded.png" alt="app-store"></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!--Download Section End-->
+</main>
+
+
+<%- partial('./partials/footer.ejs') %>

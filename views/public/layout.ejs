@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%= typeof title == 'undefined' ? 'RaidParty' : title %></title>
+		<meta name="description" content="<%= typeof metaDescription == 'undefined' ? "" : metaDescription %>">
+
+		<link rel="canonical" href="<%= "https://raidparty.io" + req.path %>" />
+
+        <!-- Viewport mobile tag for sensible mobile support -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<meta name="google-site-verification" content="Te36QGBZpJQvKPcD9WiupYrXQXMN3cQAuxRfk_T3hIQ" />
+
+		<link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+
+        <!--STYLES-->
+        <link rel="stylesheet" href="/styles/accept-cookies.css">
+        <link rel="stylesheet" href="/styles/animate.css">
+        <link rel="stylesheet" href="/styles/bootstrap.css">
+        <link rel="stylesheet" href="/styles/cookieconsent.min.css">
+        <link rel="stylesheet" href="/styles/fontawesome.css">
+        <link rel="stylesheet" href="/styles/importer.css">
+        <link rel="stylesheet" href="/styles/jnoty.min.css">
+        <link rel="stylesheet" href="/styles/odometer-theme-minimal.css">
+        <link rel="stylesheet" href="/styles/style.css">
+        <!--STYLES END-->
+		
+		<% if(sails.config.environment === 'production'){ %>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104636616-2"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-104636616-2');
+		</script>
+		<% } %>
+
+
+    </head>
+
+    <body>
+	
+    <%- body %>
+
+
+		<script>
+			<% if(typeof spacesLeft !== 'undefined'){ %>
+				var spacesLeft = <%- spacesLeft %>;
+			<% }else{ %>
+				var spacesLeft = 101,300;
+			<% } %>
+		</script>
+	
+	
+		<!--SCRIPTS-->
+		<script src="/js/dependencies/sails.io.js"></script>
+		<script src="/js/jquery-3.2.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/cookieconsent.min.js"></script>
+		<script src="/js/custom.js"></script>
+		<script src="/js/easing.js"></script>
+		<script src="/js/gotop.js"></script>
+		<script src="/js/html5shiv.min.js"></script>
+		<script src="/js/jnoty.min.js"></script>
+		<script src="/js/modernizr.js"></script>
+		<script src="/js/odometer.min.js"></script>
+		<script src="/js/parallax.js"></script>
+		<script src="/js/preload.js"></script>
+		<script src="/js/respond.min.js"></script>
+		<script src="/js/wow.js"></script>
+		<!--SCRIPTS END-->
+		
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+
+		
+		<script type="text/javascript">
+			// Socket Connections
+			io.sails.url = "<%- sails.config.API_HOST %>";
+			
+			<!--
+			if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+			  var msViewportStyle = document.createElement('style');
+			  msViewportStyle.appendChild(
+				document.createTextNode(
+				  '@-ms-viewport{width:auto!important}'
+				)
+			  );
+			  document.querySelector('head').appendChild(msViewportStyle);
+			}
+			-->
+		
+			$('body').scrollspy({
+				target: '.navbar-example'
+			})
+   
+			$(document).ready(function(){
+			
+				$('.page-scroll a').bind('click', function(event) {
+					var $anchor = $(this);
+					$('html, body').stop().animate({
+						scrollTop: $($anchor.attr('href')).offset().top
+					}, 1500, 'easeInOutExpo');
+					event.preventDefault();
+				});
+			
+				$(".navbar-nav li a").click(function(event) {
+					$(".navbar-collapse").collapse('hide');
+				});
+			
+				$.preload( '/images/block1-1.png','/images/block1-2.png','/images/content-block-bg1.jpg','/images/content-block-bg2.jpg','/images/iphone-screen-1.png','/images/developer-feature-bg-1.jpg','/images/developer-feature-bg-2.jpg');
+			
+				<!--Parallex Background Start-->
+				var $win = $(window);
+				$('.info-block-1,.info-block-3,.developer-block-1,.developer-block-3,.banner-area,.content-block.white-block').each(function(){
+					var scroll_speed = 10;
+					var $this = $(this);
+					$(window).scroll(function() {
+						var bgScroll = -(($win.scrollTop() - $this.offset().top)/ scroll_speed);
+						var bgPosition = 'center '+ bgScroll + 'px';
+						$this.css('background-position', bgPosition);
+					});
+				});
+				
+				$().UItoTop({ easingType: 'easeOutQuart' });
+				
+				wow = new WOW(
+				  {
+					animateClass: 'animated',
+					offset:       100,
+					callback:     function(box) {
+					  console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
+					}
+				  }
+				);
+				wow.init();
+				
+			});
+		</script>
+		
+
+    </body>
+</html>

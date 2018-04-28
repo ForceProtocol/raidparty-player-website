@@ -1,0 +1,80 @@
+<%- partial('./partials/header.ejs') %>
+
+
+<section class="banner-area text-center" id="intro">
+    <article class="container text-center mid-blocks">
+		<h1 class="wow fadeIn" data-wow-delay="0.1s">Win over 50 ETH in prizes</h1>
+	</article>
+</section>
+
+<main class="container">
+	<div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 col-lg-offset-3 col-md-offset-3 col-sm-offset-1 wow fadeIn" data-wow-delay="0.4s">
+		<h2 class="text-center wow fadeIn" data-wow-delay="0.1s">Free To Play Contest</h2>
+		
+		<br />
+		<h3 class="text-center wow fadeIn" data-wow-delay="0.1s"><%- __("<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left",totalSpaces,totalSpaces.toLocaleString()) %></h3>
+		
+		<% if(flash.has('errors')){ %>
+		<br /><br />
+		<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('errors').forEach(function (message) { %>
+			<p class="error"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+		<% if(flash.has('success')){ %>
+		<br /><br />
+		<div class="alert alert-success col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('success').forEach(function (message) { %>
+			<p class="success"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+		
+		<br />
+		
+		<form class="form" method="post" action="">
+		
+			<div class="row form-group">
+				<div class="col-lg-6 col-md-6">
+					<label><%- __("First Name") %></label>
+					<input class="form-control" type="text" name="firstName" value="" />
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<label><%- __("Surname") %></label>
+					<input class="form-control" type="text" name="lastName" value="" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label><%- __("Email") %></label>
+				<input class="form-control" type="text" name="email" value="" />
+			</div>
+			
+			<div class="form-group">
+				<label><%- __("Password") %></label>
+				<input class="form-control" type="password" name="password" value="" />
+			</div>
+			
+			<div class="form-group">
+				<label><%- __("Re-type Password") %></label>
+				<input class="form-control" type="password" name="passwordCheck" value="" />
+			</div>
+			
+			<%- recaptchaForm %>
+			
+			<div class="form-group">
+				<br />
+				<p><strong><%- __(`By joining you agree to the <a href="/terms-of-service">terms of service</a> and <a href="/privacy">privacy policy</a> as set out on this website.</strong>`) %></p>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-cta btn-block btn-lg"><%- __("Join Contest") %> &raquo;</button>
+			</div>
+		</form>
+	</div>
+	
+</main>
+
+<%- partial('./partials/footer.ejs') %>
