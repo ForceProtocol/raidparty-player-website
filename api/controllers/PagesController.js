@@ -118,6 +118,18 @@ module.exports = {
 	
 	
 	/**
+	* Return the faq page
+	*/
+	getFaqPage: function (req, res) {
+		return res.view('public/faq', {
+			layout: 'public/layout',
+			title: 'RaidParty FAQ',
+			metaDescription: ''
+		});
+	},
+	
+	
+	/**
 	* Return the privacy policy page
 	*/
 	getCookiePolicyPage: function (req, res) {
