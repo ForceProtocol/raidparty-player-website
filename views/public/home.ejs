@@ -40,27 +40,28 @@
 					<div class="row form-group">
 						<div class="col-lg-6 col-md-6">
 							<label><%- __("First Name") %></label>
-							<input class="form-control" type="text" name="firstName" value="" />
+							<input class="form-control" type="text" name="firstName" value="" required="required" autocomplete='given-name' />
 						</div>
 						<div class="col-lg-6 col-md-6">
 							<label><%- __("Surname") %></label>
-							<input class="form-control" type="text" name="lastName" value="" />
+							<input class="form-control" type="text" name="lastName" value="" required="required" autocomplete='family-name' />
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label><%- __("Email") %></label>
-						<input class="form-control" type="text" name="email" value="" />
+						<label data-label="email"><%- __("Email") %> &nbsp;<i class="fa fa-times" style="display:none;"></i><i class="fa fa-check" style="display:none;"></i></label>
+						<input class="form-control" type="text" name="email" value="" required="required" autocomplete='email' />
 					</div>
 					
 					<div class="form-group">
-						<label><%- __("Password") %></label>
-						<input class="form-control" type="password" name="password" value="" />
+						<label data-label="password"><%- __("Password") %> &nbsp;<i class="fa fa-times" style="display:none;"></i><i class="fa fa-check" style="display:none;"></i></label>
+						<input class="form-control" type="password" name="password" value="" required="required" />
+						<span class="form-hint help-block"><%- __("Greater than 6 characters long, contain one digit and one capital.") %></span>
 					</div>
 					
 					<div class="form-group">
-						<label><%- __("Re-type Password") %></label>
-						<input class="form-control" type="password" name="passwordCheck" value="" />
+						<label data-label="passwordCheck"><%- __("Re-type Password") %> &nbsp;<i class="fa fa-times" style="display:none;"></i><i class="fa fa-check" style="display:none;"></i></label>
+						<input class="form-control" type="password" name="passwordCheck" value="" required="required" />
 					</div>
 					
 					<%- recaptchaForm %>
@@ -178,7 +179,7 @@
 				</div>
 				
 				<h3><%- __("No winners to announce yet!") %></h3>
-				<h3><%- __("Will you be one of the first?") %></h3>
+				<h3><%- __("Will you be our first?") %></h3>
 				
 				<!--
 				<ul class="list-unstyled winners slick-initialized slick-slider slick-dotted">
