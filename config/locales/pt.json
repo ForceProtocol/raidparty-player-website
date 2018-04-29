@@ -1,1 +1,22 @@
-{}
+{
+	"Win <span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!": "Win <span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!",
+	"<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left": "<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left",
+	"Fill out the form below to secure your space.": "Fill out the form below to secure your space.",
+	"First Name": "First Name",
+	"Surname": "Surname",
+	"Email": "Email",
+	"Password": "Password",
+	"Greater than 6 characters long, contain one digit and one capital.": "Greater than 6 characters long, contain one digit and one capital.",
+	"Re-type Password": "Re-type Password",
+	"By joining you agree to the <a href=\"/terms-of-service\">terms of service</a> and <a href=\"/privacy\">privacy policy</a> as set out on this website.</strong>": "By joining you agree to the <a href=\"/terms-of-service\">terms of service</a> and <a href=\"/privacy\">privacy policy</a> as set out on this website.</strong>",
+	"Join Contest": "Join Contest",
+	"Top Prize:": "Top Prize:",
+	"Rules to Win": "Rules to Win",
+	"<span data-spaces-left-int='%s' class='spaces-left odometer'>%s</span><br />spaces left": "<span data-spaces-left-int='%s' class='spaces-left odometer'>%s</span><br />spaces left",
+	"FORCE available": "FORCE available",
+	"available to win": "available to win",
+	"OUR WINNERS": "OUR WINNERS",
+	"No winners to announce yet!": "No winners to announce yet!",
+	"Will you be our first?": "Will you be our first?",
+	"Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today.": "Download <span>RaidParty<sup>TM</sup></span><br />to win prizes today."
+}
