@@ -53,9 +53,8 @@ module.exports.sockets = {
 	adapter: 'socket.io-redis',
 	host: '167.99.196.128',
 	port: 6379,
-	db: 'sails',
+	db: 0,
 	pass: '0zgH9C-987c8Dv7d-b8wb8J',
-	auth_pass: '0zgH9C-987c8Dv7d-b8wb8J',
 
  /***************************************************************************
   *                                                                          *
