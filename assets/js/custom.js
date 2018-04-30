@@ -18,7 +18,7 @@ window.cookieconsent.initialise({
 })});
 
 $(document).ready(function(){
-	
+			
 	if(typeof spacesLeft !== 'undefined'){
 		$('.spaces-left').html(spacesLeft);
 		$('.spaces-left').attr("data-spaces-left-int",spacesLeft);
@@ -41,9 +41,32 @@ $(document).ready(function(){
 		validatePasswordField();
 	});
 	
+	$('input[name="password"]').keyup(function(){
+		var password = $('input[name="password"]').val();
+		
+		if(password.length < 6){
+			return;
+		}
+		
+		validatePasswordField();
+	});
+	
 	
 	// Check passwords match
 	$('input[name="passwordCheck"]').focusout(function(){
+		// If passwords match, now check if the original password is correct
+		if(validatePasswordsMatch()){
+			validatePasswordField();
+		}
+	});
+	
+	$('input[name="passwordCheck"]').keyup(function(){
+		var passwordCheck = $('input[name="passwordCheck"]').val();
+		
+		if(passwordCheck.length < 6){
+			return;
+		}
+		
 		// If passwords match, now check if the original password is correct
 		if(validatePasswordsMatch()){
 			validatePasswordField();
@@ -137,6 +160,11 @@ $(document).ready(function(){
 		if($('.spaces-left')){
 			var spacesLeft = parseInt($('.spaces-left').attr("data-spaces-left-int"));
 			spacesLeft--;
+			
+			if(spacesLeft < 1){
+				spacesLeft = 0;
+			}
+			
 			$('.spaces-left').html(spacesLeft);
 			$('.spaces-left').attr("data-spaces-left-int",spacesLeft);
 		}
@@ -145,10 +173,9 @@ $(document).ready(function(){
 		playerJoinedUnix = new Date().getTime();
 		
 		if((playerJoinedUnix - playerLastJoinedUnix > 1000) ||
-		playerJoinedMsgCount < 2){
+		playerJoinedMsgCount < 4){
 			$.jnoty("A new player just joined the party!", {
 				header: 'New Player',
-				sticky: false,
 				theme: 'jnoty-success',
 				icon: 'fa fa-check-circle',
 				life: 2000
@@ -157,6 +184,5 @@ $(document).ready(function(){
 		
 		playerLastJoinedUnix = new Date().getTime();
 	}
-
 
 });

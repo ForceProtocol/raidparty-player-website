@@ -1,3 +1,5 @@
+const passwordValidator = require('password-validator');
+
 module.exports = {
 
   errorResponse: function (err, req, res, route) {
@@ -28,7 +30,23 @@ module.exports = {
     if(!route) return res.serverError();
     res.redirect(route);
 
-  }
+  },
+  
+  	
+	isValidPassword: function(password){
+		var schema = new passwordValidator();
+ 
+		// Add properties to it
+		schema
+		.is().min(7)                                    // Minimum length 8
+		.is().max(100)                                  // Maximum length 100
+		.has().uppercase()                              // Must have uppercase letters
+		.has().lowercase()                              // Must have lowercase letters
+		.has().digits()                                 // Must have digits
+		.has().not().spaces();							// Should not have spaces
+		
+		return schema.validate(password);
+	},
 
 
 }

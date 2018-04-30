@@ -7,7 +7,8 @@
 
 const request = require('request-promise'),
 	Recaptcha = require('recaptcha-v2').Recaptcha,
-	fs = require('fs');
+	fs = require('fs'),
+	emailValidator = require("email-validator");
 
 var RECAPTCHA_PUBLIC_KEY  = '6LfCVFUUAAAAAH1IxJRQDIn_F2PQ5mmijN-LJIGA',
     RECAPTCHA_PRIVATE_KEY = '6LfCVFUUAAAAAJGxUQksgqpheaEdjJSRpGiT4t-f';
@@ -257,84 +258,100 @@ module.exports = {
 	*/
 	async postJoinPage(req, res) {
 	
-		let firstName = req.param('firstName'),
-		lastName = req.param('lastName'),
-		email = req.param('email'),
-		password = req.param('password'),
-		passwordCheck = req.param('passwordCheck'),
-		locale = req.getLocale(),
-		errors = [];
-		
-		
-		// Confirm send data is correct
-		if(!firstName){
-			errors.push('Your first name must be entered');
-		}
-		
-		if(!lastName){
-			errors.push('Your surname must be entered');
-		}
-		
-		if(!email){
-			errors.push('You must enter your email');
-		}
-		
-		if(!password){
-			errors.push('You must enter a valid password');
-		}
-		
-		if(password != passwordCheck){
-			errors.push('Your passwords do not match');
-		}
-		
-		if(errors.length > 0){
-			req.addFlash('errors', errors);
+		try { 
+			let firstName = req.param('firstName'),
+			lastName = req.param('lastName'),
+			email = req.param('email'),
+			password = req.param('password'),
+			passwordCheck = req.param('passwordCheck'),
+			locale = req.getLocale(),
+			errors = [];
+			
+			
+			// Confirm send data is correct
+			if(!firstName){
+				errors.push(sails.__("Your first name must be entered"));
+			}
+			
+			if(!lastName){
+				errors.push(sails.__("Your surname must be entered"));
+			}
+			
+			if(!email){
+				errors.push(sails.__("You must enter your email"));
+			}
+			
+			if(!password){
+				errors.push(sails.__("You must enter a valid password"));
+			}
+			
+			if(password != passwordCheck){
+				errors.push(sails.__("Your passwords do not match"));
+			}
+			
+			if(!emailValidator.validate(email)){
+				email = '';
+				errors.push(sails.__("You provided an invalid email"));
+			}
+			
+			if(!rUtil.isValidPassword(password)){
+				errors.push(sails.__("You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit"));
+			}
+			
+			let formDataUrl = '?firstName=' + firstName + '&lastName=' + lastName + '&email=' + email;
+			
+			if(errors.length > 0){
+				req.addFlash('errors', errors);
+				return res.redirect("/join" + formDataUrl);
+			}
+			
+			// Confirm recapture success
+			var data = {
+				remoteip: req.connection.remoteAddress,
+				response: req.param("g-recaptcha-response"),
+				secret: RECAPTCHA_PRIVATE_KEY
+			};
+
+			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, data);
+			
+			recaptcha.verify(function (success, error_code) {
+
+				if (success) {
+					request({
+						method: 'POST',
+						uri: sails.config.API_HOST + '/app/player',
+						json: true,
+						body: {
+							firstName:firstName,
+							lastName:lastName,
+							email:email,
+							password:password,
+							locale:locale,
+							device_type: 'unknown'
+						}
+					}).then((rsp)=> {
+						req.addFlash('success', 'Well done! You have claimed your space to be entered into the competition');
+						return res.redirect("/join-success");
+					}).catch(err=> {
+						if(typeof err.response.body.err != 'undefined'){
+							req.addFlash('errors', err.response.body.err);
+						}else{
+							req.addFlash('errors',"There was a server error. Please try again later.");
+						}
+						sails.log.debug('Post Join Submit was an error');
+						return res.redirect("/join" + formDataUrl);
+					});
+					
+				} else {
+					sails.log.debug("error code:", error_code);
+					req.addFlash('errors', 'There was a problem subscribing you due to a technical issue.');
+					return res.redirect("/join" + formDataUrl);
+				}
+			});
+		}catch(err){
+			sails.log.error("postJoinPage failed: ",err);
 			return res.redirect("/join");
 		}
-		
-		// Confirm recapture success
-		var data = {
-			remoteip: req.connection.remoteAddress,
-			response: req.param("g-recaptcha-response"),
-			secret: RECAPTCHA_PRIVATE_KEY
-		};
-
-		var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, data);
-		
-		recaptcha.verify(function (success, error_code) {
-
-			if (success) {
-				request({
-					method: 'POST',
-					uri: sails.config.API_HOST + '/app/player',
-					json: true,
-					body: {
-						firstName:firstName,
-						lastName:lastName,
-						email:email,
-						password:password,
-						locale:locale,
-						device_type: 'unknown'
-					}
-				}).then((rsp)=> {
-					req.addFlash('success', 'Well done! You have claimed your space to be entered into the competition');
-					return res.redirect("/join-success");
-				}).catch(err=> {
-					if(typeof err.response.body.err != 'undefined'){
-						req.addFlash('errors', err.response.body.err);
-					}else{
-						req.addFlash('errors',"There was a server error. Please try again later.");
-					}
-					sails.log.debug('Post Join Submit was an error');
-					return res.redirect("/join");
-				});
-				
-			} else {
-				sails.log.debug("error code:", error_code);
-				req.addFlash('errors', 'There was a problem subscribing you due to a technical issue.');
-				return res.redirect("/join");
-			}
-		});
 	},
 	
 	

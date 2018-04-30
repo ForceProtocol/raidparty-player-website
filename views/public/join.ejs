@@ -39,17 +39,17 @@
 			<div class="row form-group">
 				<div class="col-lg-6 col-md-6">
 					<label><%- __("First Name") %></label>
-					<input class="form-control" type="text" name="firstName" value="" required="required" autocomplete='given-name' />
+					<input class="form-control" type="text" name="firstName" value="<% if(req.param("firstName")){ %><%= req.param("firstName") %><% } %>" required="required" autocomplete='given-name' />
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<label><%- __("Surname") %></label>
-					<input class="form-control" type="text" name="lastName" value="" required="required" autocomplete='family-name' />
+					<input class="form-control" type="text" name="lastName" value="<% if(req.param("lastName")){ %><%= req.param("firstName") %><% } %>" required="required" autocomplete='family-name' />
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label data-label="email"><%- __("Email") %> &nbsp;<i class="fa fa-times" style="display:none;"></i><i class="fa fa-check" style="display:none;"></i></label>
-				<input class="form-control" type="text" name="email" value="" required="required" autocomplete='email' />
+				<input class="form-control" type="text" name="email" value="<% if(req.param("email")){ %><%= req.param("email") %><% } %>" required="required" autocomplete='email' />
 			</div>
 	
 			<div class="form-group">
