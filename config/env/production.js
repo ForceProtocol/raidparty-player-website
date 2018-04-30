@@ -33,7 +33,7 @@ module.exports = {
 
     hookTimeout: 120000,
 	
-	API_HOST: 'https://hub.raidparty.io',
+	API_HOST: 'https://staging.hub.raidparty.io',
     APP_HOST: 'https://app.raidparty.io'
 
 };
