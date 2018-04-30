@@ -26,6 +26,13 @@ module.exports = {
     models: {
         connection: 'mysqlDbProd'
     },
+    sockets: {
+		adapter: 'socket.io-redis',
+		host: '167.99.196.128',
+		port: 6379,
+		db: 'sails',
+		pass: '0zgH9C987c8Dvb8wb8J',
+    },
 
 
     mandrillApiKey: 'pScbI1GG5IjISeRbQIvzXg',		// PRODUCTION KEY
