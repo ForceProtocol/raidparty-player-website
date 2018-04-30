@@ -31,7 +31,7 @@ module.exports = {
 		host: '167.99.196.128',
 		port: 6379,
 		db: 'sails',
-		pass: '0zgH9C987c8Dvb8wb8J',
+		pass: '0zgH9C-987c8Dv7d-b8wb8J',
     },
 
 
