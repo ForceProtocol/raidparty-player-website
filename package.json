@@ -8,6 +8,7 @@
     "@sailshq/connect-redis": "^3.2.1",
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
+    "connect-redis": "^3.3.3",
     "ejs": "^2.5.7",
     "email-validator": "^2.0.3",
     "grunt": "1.0.1",
