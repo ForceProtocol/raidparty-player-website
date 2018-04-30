@@ -40,5 +40,7 @@
 	"Claim your seat in the free-to-play RaidParty competition for a chance to win over 50ETH!": "Claim your seat in the free-to-play RaidParty competition for a chance to win over 50ETH!",
 	"Enter our free-to-play competition for a chance to win over 50ETH!": "Enter our free-to-play competition for a chance to win over 50ETH!",
 	"Your passwords do not match": "Your passwords do not match",
-	"You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit": "You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit"
+	"You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit": "You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit",
+	"join over %s players!": "join over %s players!",
+	"<span data-total-players-int='%s' class='players-left'>%s</span><br />total players": "<span data-total-players-int='%s' class='players-left'>%s</span><br />total players"
 }

@@ -27,7 +27,7 @@ module.exports = {
         connection: 'mysqlDbProd'
     },
     sockets: {
-		adapter: 'socket.io-redis',
+		adapter: '@sailshq/socket.io-redis',
 		host: '167.99.196.128',
 		port: 6379,
 		db: 'sails',
