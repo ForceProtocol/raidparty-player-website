@@ -361,7 +361,7 @@ module.exports = {
 	getJoinSuccessPage: function (req, res) {
 		return res.view('public/join-success', {
 			layout: 'public/layout',
-			title: 'Congratulations! Your space has been reserved',
+			title: sails.__('Congratulations! Your space has been reserved'),
 			metaDescription: 'Enter our free-to-play competition for a chance to win over 16ETH!',
 		});
 	},
@@ -399,7 +399,7 @@ module.exports = {
 						locale:locale
 					}
 				}).then((rsp)=> {
-					req.addFlash('success', 'You are now subscribed to RaidParty!');
+					req.addFlash('success', sails.__('You are now subscribed to RaidParty!'));
 					return res.redirect("/");
 				}).catch(err=> {
 					sails.log.debug('Post Subscribe Err: ', err);
