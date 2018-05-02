@@ -10,5 +10,7 @@ module.exports = function(req, res, next) {
 		res.locals.language = req.session.language;
 	}
 
+	sails.log.debug("localise is running",req.session.language);
+	
 	next();
 };

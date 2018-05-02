@@ -32,7 +32,7 @@
 		<br />
 		
 		<div class=""><% if(totalPlayers > 21000){ %><%- __("join over %s players!",totalPlayers.toLocaleString()) %><% } %></div>
-		<button class="btn btn-cta btn-lg display-join-form"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; Enter Free Contest &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+		<button class="btn btn-cta btn-lg display-join-form"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; <%- __("Enter Free Contest") %> &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
 		
 		<div class="container">
 			<div class="hide-join-form col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-8" style="display:none;">
@@ -104,7 +104,7 @@
 								<div class="game-image" style="background-image:url('/images/games/banners/<%- game.bannerContent %>');">
 								
 									<% if(game.isLive){ %>
-										<div class="days-left"><img src="/images/icons/active-dot.png" alt="active" /> &nbsp;Ends <%- game.timeRemaining %></div>
+										<div class="days-left"><img src="/images/icons/active-dot.png" alt="active" /> &nbsp;<%- __("Ends") %> <%- game.timeRemaining %></div>
 									<% }else{ %>
 										<div class="days-left"><%- game.timeRemaining %></div>
 									<% } %>
@@ -124,7 +124,7 @@
 										%>
 										<li>
 											<a href="<%- platform.link %>"><img src="/images/icons/<% if(platform.type == 'ios'){ %>ios-app-store-icon.png<% }else if(platform.type == 'android'){ %>google-play-store-icon.png<% } %>" alt="" /> 
-											&nbsp; PLAY</a>
+											&nbsp; <%- __("PLAY") %></a>
 										</li>
 										<% }); %>
 										
