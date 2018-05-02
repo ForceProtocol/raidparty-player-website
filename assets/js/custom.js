@@ -172,15 +172,12 @@ $(document).ready(function(){
 		playerJoinedMsgCount++;
 		playerJoinedUnix = new Date().getTime();
 		
-		if((playerJoinedUnix - playerLastJoinedUnix > 1000) ||
-		playerJoinedMsgCount < 4){
-			$.jnoty("A new player just joined the party!", {
-				header: 'New Player',
-				theme: 'jnoty-success',
-				icon: 'fa fa-check-circle',
-				life: 2000
-			});
-		}
+		$.jnoty("A new player just joined the party!", {
+			header: 'New Player',
+			theme: 'jnoty-success',
+			icon: 'fa fa-check-circle',
+			life: 2000
+		});
 		
 		playerLastJoinedUnix = new Date().getTime();
 	}
