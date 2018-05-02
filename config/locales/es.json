@@ -41,7 +41,7 @@
 	"Enter our free-to-play competition for a chance to win over 50ETH!": "¡Ingresa a nuestra competencia gratuita para tener la oportunidad de ganar más de 50ETH!",
 	"Your passwords do not match": "Tus contraseñas no coinciden",
 	"You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit": "Usted no proporcionó una contraseña válida. Debe tener más de 6 caracteres, contener un carácter en mayúscula y al menos un dígito",
-	"join over %s players!": "¡únete a los jugadores de%s!",
+	"join over %s players!": "¡únete a los jugadores de %s!",
 	"<span data-total-players-int='%s' class='players-left'>%s</span><br />total players": "<span data-total-players-int = '%s' clase = 'players-left'>%s </span> <br /> jugadores totales",
 	"Toggle navigation": "Navegación de palanca",
 	"How to Play": "Cómo jugar",
