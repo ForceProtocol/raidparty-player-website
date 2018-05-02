@@ -172,7 +172,11 @@ $(document).ready(function(){
 		playerJoinedMsgCount++;
 		playerJoinedUnix = new Date().getTime();
 		
-		$.jnoty("A new player just joined the party!", {
+		if(typeof jnotyNewPlayerJoinedMsg === 'undefined'){
+			var jnotyNewPlayerJoinedMsg = "A new player just joined the party!";
+		}
+		
+		$.jnoty(jnotyNewPlayerJoinedMsg, {
 			header: 'New Player',
 			theme: 'jnoty-success',
 			icon: 'fa fa-check-circle',
