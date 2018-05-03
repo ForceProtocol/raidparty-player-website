@@ -9,17 +9,19 @@ const request = require('request-promise'),
 	Recaptcha = require('recaptcha-v2').Recaptcha,
 	fs = require('fs'),
 	emailValidator = require("email-validator");
+requestIp = require("request-ip");
+geoip = require('geoip-lite');
 
-var RECAPTCHA_PUBLIC_KEY  = '6LfCVFUUAAAAAH1IxJRQDIn_F2PQ5mmijN-LJIGA',
-    RECAPTCHA_PRIVATE_KEY = '6LfCVFUUAAAAAJGxUQksgqpheaEdjJSRpGiT4t-f';
+var RECAPTCHA_PUBLIC_KEY = '6LfCVFUUAAAAAH1IxJRQDIn_F2PQ5mmijN-LJIGA',
+	RECAPTCHA_PRIVATE_KEY = '6LfCVFUUAAAAAJGxUQksgqpheaEdjJSRpGiT4t-f';
 
-Recaptcha.prototype.toHTML = function(callbackFunction) {
+Recaptcha.prototype.toHTML = function (callbackFunction) {
 
-  if(typeof callbackFunction === 'undefined'){
-    callbackFunction = '';
-  }
+	if (typeof callbackFunction === 'undefined') {
+		callbackFunction = '';
+	}
 
-  return '<div class="g-recaptcha" data-callback="' + callbackFunction + '" data-sitekey="' + this.public_key + '"></div>';
+	return '<div class="g-recaptcha" data-callback="' + callbackFunction + '" data-sitekey="' + this.public_key + '"></div>';
 };
 
 module.exports = {
@@ -28,16 +30,16 @@ module.exports = {
 	/**
 	* Return the home page
 	*/
-	async getHomePage (req, res) {
-		
-		try{
-		
-			if(req.param('subscribe')){
+	async getHomePage(req, res) {
+
+		try {
+
+			if (req.param('subscribe')) {
 				req.addFlash('success', sails.__("Thank you for confirming your subscription. You are now subscribed to RaidParty."));
 			}
-			
+
 			let locale = req.getLocale().trim();
-			
+
 			let reqOptions = {
 				uri: sails.config.API_HOST + '/players/count',
 				headers: {
@@ -45,18 +47,18 @@ module.exports = {
 				},
 				json: true
 			};
-			
+
 			let totalPlayers = await request(reqOptions),
-			totalSpaces = 150000,
-			spacesLeft;
-			
+				totalSpaces = 150000,
+				spacesLeft;
+
 			spacesLeft = totalSpaces - totalPlayers.totalPlayers;
-			
-			if(spacesLeft < 0){
+
+			if (spacesLeft < 0) {
 				spacesLeft = 0;
 			}
-			
-			
+
+
 			// Get list of all active games to display
 			reqOptions = {
 				uri: sails.config.API_HOST + '/games/active?locale=' + locale,
@@ -65,11 +67,11 @@ module.exports = {
 				},
 				json: true
 			};
-			
+
 			let games = await request(reqOptions);
-			
+
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
-			
+
 			return res.view('public/home', {
 				layout: 'public/layout',
 				title: sails.__("RaidParty, Play Share and Earn FORCE"),
@@ -77,11 +79,11 @@ module.exports = {
 				totalSpaces: totalSpaces,
 				totalPlayers: totalPlayers.totalPlayers,
 				spacesLeft: spacesLeft,
-				games:games,
-				recaptchaForm:recaptcha.toHTML()
+				games: games,
+				recaptchaForm: recaptcha.toHTML()
 			});
-		}catch(err){
-			sails.log.error("getHomePage failed: ",err);
+		} catch (err) {
+			sails.log.error("getHomePage failed: ", err);
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
 			return res.view('public/home', {
 				layout: 'public/layout',
@@ -90,14 +92,14 @@ module.exports = {
 				totalSpaces: 150000,
 				totalPlayers: 31745,
 				spacesLeft: 118255,
-				games:[],
-				recaptchaForm:recaptcha.toHTML()
+				games: [],
+				recaptchaForm: recaptcha.toHTML()
 			});
 		}
 	},
-	
-	
-	
+
+
+
 	/**
 	* Redirect to privacy policy page
 	*/
@@ -116,8 +118,8 @@ module.exports = {
 			metaDescription: ''
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the faq page
 	*/
@@ -128,8 +130,8 @@ module.exports = {
 			metaDescription: ''
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the privacy policy page
 	*/
@@ -140,8 +142,8 @@ module.exports = {
 			metaDescription: ''
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the players terms of service
 	*/
@@ -152,8 +154,8 @@ module.exports = {
 			metaDescription: ''
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the developer home page
 	*/
@@ -164,8 +166,8 @@ module.exports = {
 			metaDescription: 'Drive real players to your games and reduce player attrition.'
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the developer terms
 	*/
@@ -176,21 +178,21 @@ module.exports = {
 			metaDescription: 'Important information about using the RaidParty technology and services for indie game developers'
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the winners
 	*/
 	getWinners: function (req, res) {
-	
+
 		return res.view('public/winners', {
 			layout: 'public/layout',
 			title: 'All the winners of RaidParty Rewards!',
 			metaDescription: 'Check out all the latest winners for players on the RaidParty gamer network'
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the how to play guide for players
 	*/
@@ -201,32 +203,32 @@ module.exports = {
 			metaDescription: 'Find out how to earn big prizes and rewards for playing great games on the RaidParty gaming reward network'
 		});
 	},
-	
-	
+
+
 	/**
 	* Return the join landing page
 	*/
-	async getJoinPage (req, res) {
-	
+	async getJoinPage(req, res) {
+
 		try {
 			let reqOptions = {
-					uri: sails.config.API_HOST + '/players/count',
-					headers: {
-						'User-Agent': 'Request-Promise'
-					},
-					json: true
-				};
-				
-				let totalPlayers = await request(reqOptions),
+				uri: sails.config.API_HOST + '/players/count',
+				headers: {
+					'User-Agent': 'Request-Promise'
+				},
+				json: true
+			};
+
+			let totalPlayers = await request(reqOptions),
 				totalSpaces = 150000,
 				spacesLeft;
-				
-				spacesLeft = totalSpaces - totalPlayers.totalPlayers;
-				
-				if(spacesLeft < 0){
-					spacesLeft = 0;
-				}
-				
+
+			spacesLeft = totalSpaces - totalPlayers.totalPlayers;
+
+			if (spacesLeft < 0) {
+				spacesLeft = 0;
+			}
+
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
 			return res.view('public/join', {
 				layout: 'public/layout',
@@ -235,10 +237,10 @@ module.exports = {
 				totalSpaces: totalSpaces,
 				totalPlayers: totalPlayers.totalPlayers,
 				spacesLeft: spacesLeft,
-				recaptchaForm:recaptcha.toHTML()
+				recaptchaForm: recaptcha.toHTML()
 			});
-		}catch(err){
-			sails.log.error("getJoinPage failed: ",err);
+		} catch (err) {
+			sails.log.error("getJoinPage failed: ", err);
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
 			return res.view('public/join', {
 				layout: 'public/layout',
@@ -247,64 +249,64 @@ module.exports = {
 				totalSpaces: 150000,
 				totalPlayers: 31745,
 				spacesLeft: 118255,
-				recaptchaForm:recaptcha.toHTML()
+				recaptchaForm: recaptcha.toHTML()
 			});
 		}
 	},
-	
-	
+
+
 	/**
 	* Submit the join page
 	*/
 	async postJoinPage(req, res) {
-	
-		try { 
+
+		try {
 			let firstName = req.param('firstName'),
-			lastName = req.param('lastName'),
-			email = req.param('email'),
-			password = req.param('password'),
-			passwordCheck = req.param('passwordCheck'),
-			locale = req.getLocale(),
-			errors = [];
-			
-			
+				lastName = req.param('lastName'),
+				email = req.param('email'),
+				password = req.param('password'),
+				passwordCheck = req.param('passwordCheck'),
+				locale = req.getLocale(),
+				errors = [];
+
+
 			// Confirm send data is correct
-			if(!firstName){
+			if (!firstName) {
 				errors.push(sails.__("Your first name must be entered"));
 			}
-			
-			if(!lastName){
+
+			if (!lastName) {
 				errors.push(sails.__("Your surname must be entered"));
 			}
-			
-			if(!email){
+
+			if (!email) {
 				errors.push(sails.__("You must enter your email"));
 			}
-			
-			if(!password){
+
+			if (!password) {
 				errors.push(sails.__("You must enter a valid password"));
 			}
-			
-			if(password != passwordCheck){
+
+			if (password != passwordCheck) {
 				errors.push(sails.__("Your passwords do not match"));
 			}
-			
-			if(!emailValidator.validate(email)){
+
+			if (!emailValidator.validate(email)) {
 				email = '';
 				errors.push(sails.__("You provided an invalid email"));
 			}
-			
-			if(!rUtil.isValidPassword(password)){
+
+			if (!rUtil.isValidPassword(password)) {
 				errors.push(sails.__("You did not provide a valid password. It must be greater than 6 characters, contain one uppercase character and at least one digit"));
 			}
-			
+
 			let formDataUrl = '?firstName=' + firstName + '&lastName=' + lastName + '&email=' + email;
-			
-			if(errors.length > 0){
+
+			if (errors.length > 0) {
 				req.addFlash('errors', errors);
 				return res.redirect("/join" + formDataUrl);
 			}
-			
+
 			// Confirm recapture success
 			var data = {
 				remoteip: req.connection.remoteAddress,
@@ -313,7 +315,7 @@ module.exports = {
 			};
 
 			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, data);
-			
+
 			recaptcha.verify(function (success, error_code) {
 
 				if (success) {
@@ -322,61 +324,68 @@ module.exports = {
 						uri: sails.config.API_HOST + '/app/player',
 						json: true,
 						body: {
-							firstName:firstName,
-							lastName:lastName,
-							email:email,
-							password:password,
-							locale:locale,
+							firstName: firstName,
+							lastName: lastName,
+							email: email,
+							password: password,
+							locale: locale,
 							device_type: 'unknown'
 						}
-					}).then((rsp)=> {
+					}).then((rsp) => {
 						req.addFlash('success', 'Well done! You have claimed your space to be entered into the competition');
 						return res.redirect("/join-success");
-					}).catch(err=> {
-						if(typeof err.response.body.err != 'undefined'){
+					}).catch(err => {
+						if (typeof err.response.body.err != 'undefined') {
 							req.addFlash('errors', err.response.body.err);
-						}else{
-							req.addFlash('errors',"There was a server error. Please try again later.");
+						} else {
+							req.addFlash('errors', "There was a server error. Please try again later.");
 						}
 						sails.log.debug('Post Join Submit was an error');
 						return res.redirect("/join" + formDataUrl);
 					});
-					
+
 				} else {
 					sails.log.debug("error code:", error_code);
 					req.addFlash('errors', 'There was a problem subscribing you due to a technical issue.');
 					return res.redirect("/join" + formDataUrl);
 				}
 			});
-		}catch(err){
-			sails.log.error("postJoinPage failed: ",err);
+		} catch (err) {
+			sails.log.error("postJoinPage failed: ", err);
 			return res.redirect("/join");
 		}
 	},
-	
-	
+
+
 	/**
 	* Return the join success landing page
 	*/
 	getJoinSuccessPage: function (req, res) {
 		return res.view('public/join-success', {
 			layout: 'public/layout',
-			title: sails.__('Congratulations! Your space has been reserved'),
+			title: 'Congratulations! Your space has been reserved',
 			metaDescription: 'Enter our free-to-play competition for a chance to win over 16ETH!',
 		});
 	},
-	
-	
+
+	getGameNotAvailablePage: function (req, res) {
+		return res.view('public/gameNotAvailable', {
+			layout: 'public/layout',
+			title: 'Oops!'
+		});
+	},
+
+
 	/**
 	* Subscribe to maillist
 	*/
 	postSubscribe: function (req, res) {
-	
+
 		var email = req.param("email"),
 			locale = req.getLocale();
-			
-		sails.log.debug("locale is:",locale);
-		
+
+		sails.log.debug("locale is:", locale);
+
 		// Confirm recapture success
 		var data = {
 			remoteip: req.connection.remoteAddress,
@@ -389,29 +398,54 @@ module.exports = {
 		recaptcha.verify(function (success, error_code) {
 
 			if (success) {
-			
+
 				request({
 					method: 'POST',
 					uri: sails.config.API_HOST + '/app/subscribe',
 					json: true,
 					body: {
-						email:email,
-						locale:locale
+						email: email,
+						locale: locale
 					}
-				}).then((rsp)=> {
-					req.addFlash('success', sails.__('You are now subscribed to RaidParty!'));
+				}).then((rsp) => {
+					req.addFlash('success', 'You are now subscribed to RaidParty!');
 					return res.redirect("/");
-				}).catch(err=> {
+				}).catch(err => {
 					sails.log.debug('Post Subscribe Err: ', err);
 					return res.redirect("/");
 				});
-				
+
 			} else {
 				console.log("error code:", error_code);
 				req.addFlash('errors', 'There was a problem subscribing you due to a technical issue.');
 				return res.redirect("/");
 			}
 		});
-		
+
 	},
+
+	gameLinkCountryCheck: function (req, res) {
+		let gameLinkObject = req.param('game_link');
+		if (!gameLinkObject) {
+			return res.serverError(err);
+		}
+		if (!_.isString(gameLinkObject)) {
+			gameLinkObject = JSON.parse(JSON.stringify(gameLinkObject));
+			var ip = requestIp.getClientIp(req);
+			var userLocation = geoip.lookup(ip);
+			if (!userLocation) {
+				return res.serverError("Could not find user's country from ip address");
+			}
+			const userCountryLink = _.filter(gameLinkObject, (linkObject) => {
+				if (linkObject.country === userLocation.country) {
+					return true;
+				}
+			});
+			if (userCountryLink.length < 1) {
+				return res.ok('/game-not-available');
+			}
+			return res.ok(userCountryLink[0].url);
+		}
+		return res.ok(gameLinkObject);
+	}
 };

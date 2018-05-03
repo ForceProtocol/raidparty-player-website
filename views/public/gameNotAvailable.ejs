@@ -1,0 +1,39 @@
+<%- partial('./partials/header.ejs') %>
+
+		
+<section class="banner-area text-center" id="intro">
+	<article class="banner-data">
+	
+		<% if(flash.has('errors')){ %>
+		<br /><br />
+		<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('errors').forEach(function (message) { %>
+			<p class="error"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+		<% if(flash.has('success')){ %>
+		<br /><br />
+		<div class="alert alert-success col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('success').forEach(function (message) { %>
+			<p class="success"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+
+    	<div class="banner-logo wow fadeInDown"><img src="images/banner-logo-beta.png" alt="banner-logo"></div>
+		
+		<br />
+		
+		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("Sorry! This game is not available in your region. ") %></h1>
+		<br />
+    </article>
+	
+	<br />
+	<br />
+	
+</section>
+
+<%- partial('./partials/footer.ejs') %>

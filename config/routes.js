@@ -11,6 +11,8 @@ module.exports.routes = {
 	'GET /developer-terms': 'PagesController.getDeveloperTerms',
 	'GET /winners': 'PagesController.getWinners',
 	'GET /how-to-play': 'PagesController.getHowToPlay',
+	'POST /check-game-country': 'PagesController.gameLinkCountryCheck',
+	'GET /game-not-available': 'PagesController.getGameNotAvailablePage',
 	
 	/** Pre Join Landing Page **/
 	'GET /join': 'PagesController.getJoinPage',

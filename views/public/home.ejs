@@ -122,8 +122,10 @@
 										<% game.gamePlatforms.forEach(function(platform){ 
 											if(!platform.active){ return; }
 										%>
+										<script>
+										</script>
 										<li>
-											<a href="<%- platform.link %>"><img src="/images/icons/<% if(platform.type == 'ios'){ %>ios-app-store-icon.png<% }else if(platform.type == 'android'){ %>google-play-store-icon.png<% } %>" alt="" /> 
+											<a id="check-link-country" data-link= <%- platform.link %>> <img src="/images/icons/<% if(platform.type == 'ios'){ %>ios-app-store-icon.png<% }else if(platform.type == 'android'){ %>google-play-store-icon.png<% } %>" alt="" /> 
 											&nbsp; <%- __("PLAY") %></a>
 										</li>
 										<% }); %>
@@ -155,7 +157,6 @@
 			</div>
 		</div>
 	</article>
-	
     <article class="container text-center mid-blocks">
 		<article class="mid-3-blocks clearfix">
 			<div class="col-sm-4 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
@@ -220,7 +221,7 @@
 									</li>
 									<li>
 										<div class="winner-comment">
-											<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+											<p>ï¿½Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.ï¿½</p>
 											<div class="profile-detail">
 												<span class="first-name">Alexa</span> Willborough, <span class="location">Slovakia</span>
 											</div>
@@ -240,7 +241,7 @@
 									</li>
 									<li>
 										<div class="winner-comment">
-											<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>
+											<p>ï¿½Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.ï¿½</p>
 											<div class="profile-detail">
 												<span class="first-name">Peter</span> Bancroft, <span class="location">Nigeria</span>
 											</div>
