@@ -368,13 +368,6 @@ module.exports = {
 		});
 	},
 
-	getGameNotAvailablePage: function (req, res) {
-		return res.view('public/gameNotAvailable', {
-			layout: 'public/layout',
-			title: 'Oops!'
-		});
-	},
-
 
 	/**
 	* Subscribe to maillist
@@ -424,28 +417,64 @@ module.exports = {
 
 	},
 
-	gameLinkCountryCheck: function (req, res) {
-		let gameLinkObject = req.param('game_link');
-		if (!gameLinkObject) {
-			return res.serverError(err);
-		}
-		if (!_.isString(gameLinkObject)) {
-			gameLinkObject = JSON.parse(JSON.stringify(gameLinkObject));
-			var ip = requestIp.getClientIp(req);
-			var userLocation = geoip.lookup(ip);
-			if (!userLocation) {
-				return res.serverError("Could not find user's country from ip address");
-			}
-			const userCountryLink = _.filter(gameLinkObject, (linkObject) => {
-				if (linkObject.country === userLocation.country) {
-					return true;
+
+	
+	
+	
+	async getCheckGameUrl(req,res){
+		let gameId = req.param("game_id"),
+		gameLinkId = req.param("link_id"),
+		gameLinkObject;
+		
+		// Get list of all active games to display
+		reqOptions = {
+			uri: sails.config.API_HOST + '/game/' + gameId,
+			headers: {
+				'User-Agent': 'Request-Promise'
+			},
+			json: true
+		};
+
+		let game = await request(reqOptions);
+		
+		for(const gameLink of game.gamePlatforms){
+			// We found the link that they needed
+			if(gameLink.id == gameLinkId){
+				if(typeof gameLink.link !== 'string'){
+				
+					gameLinkObject = util.stringToJson(gameLink.link);
+					
+					if(!gameLinkObject){
+						continue;
+					}
+					
+					let ip = requestIp.getClientIp(req);
+					
+					let userLocation = geoip.lookup(ip);
+					
+					if(!userLocation){
+						continue;
+					}
+					
+					const userCountryLink = _.filter(gameLinkObject, (linkObject) => {
+						if (linkObject.country === userLocation.country) {
+							return true;
+						}
+					});
+					
+					if (userCountryLink.length < 1) {
+						continue;
+					}
+					
+					return res.redirect(userCountryLink[0].url);
 				}
-			});
-			if (userCountryLink.length < 1) {
-				return res.ok('/game-not-available');
 			}
-			return res.ok(userCountryLink[0].url);
 		}
-		return res.ok(gameLinkObject);
+		
+		
+		return res.view('public/gameNotAvailable', {
+			layout: 'public/layout',
+			title: sails.__('Sorry! This game is not available in your region.')
+		});
 	}
 };

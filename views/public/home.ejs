@@ -122,10 +122,8 @@
 										<% game.gamePlatforms.forEach(function(platform){ 
 											if(!platform.active){ return; }
 										%>
-										<script>
-										</script>
 										<li>
-											<a id="check-link-country" data-link= <%- platform.link %>> <img src="/images/icons/<% if(platform.type == 'ios'){ %>ios-app-store-icon.png<% }else if(platform.type == 'android'){ %>google-play-store-icon.png<% } %>" alt="" /> 
+											<a href="<%- platform.link %>"><img src="/images/icons/<% if(platform.type == 'ios'){ %>ios-app-store-icon.png<% }else if(platform.type == 'android'){ %>google-play-store-icon.png<% } %>" alt="" /> 
 											&nbsp; <%- __("PLAY") %></a>
 										</li>
 										<% }); %>

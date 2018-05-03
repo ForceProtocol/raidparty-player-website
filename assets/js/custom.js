@@ -187,20 +187,3 @@ $(document).ready(function(){
 	}
 
 });
-
-$(document).ready(function() {
-	$('#check-link-country').on('click', function() {
-		var link = $(this).data("link");
-		$.ajax({
-			type: "POST",
-			url: "/check-game-country",
-			data: {
-				'game_link': link,
-			},
-			success: function(data) {
-				window.location = data;
-			}
-		});
-	})
-	
-});
