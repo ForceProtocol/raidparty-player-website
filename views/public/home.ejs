@@ -101,7 +101,7 @@
 					<% games.forEach(function(game){ %>
 						<div class="<% if(game.featured){ %>col-lg-8 col-md-8 col-sm-12 col-xs-12<% }else{ %>col-lg-4 col-md-4 col-sm-6 col-xs-12<% } %>">
 							<div class="game-holder <% if(game.jackpot.length > 0){ %>has-jackpot<% } %>">
-								<div class="game-image" style="background-image:url('/images/games/banners/<%- game.bannerContent %>');">
+								<div class="game-image" style="background-image:url('/images/games/banners/<%- game.avatar %>');">
 								
 									<% if(game.isLive){ %>
 										<div class="days-left"><img src="/images/icons/active-dot.png" alt="active" /> &nbsp;<%- __("Ends") %> <%- game.timeRemaining %></div>
