@@ -418,14 +418,14 @@ module.exports = {
 	},
 
 
-	
-	
-	
-	async getCheckGameUrl(req,res){
+
+
+
+	async getCheckGameUrl(req, res) {
 		let gameId = req.param("game_id"),
-		gameLinkId = req.param("link_id"),
-		gameLinkObject;
-		
+			gamePlatformId = req.param("platform_id"),
+			gameLinkObject;
+
 		// Get list of all active games to display
 		reqOptions = {
 			uri: sails.config.API_HOST + '/game/' + gameId,
@@ -436,42 +436,38 @@ module.exports = {
 		};
 
 		let game = await request(reqOptions);
-		
-		for(const gameLink of game.gamePlatforms){
+		for (const gamePlatform of game.gamePlatforms) {
 			// We found the link that they needed
-			if(gameLink.id == gameLinkId){
-				if(typeof gameLink.link !== 'string'){
-				
-					gameLinkObject = util.stringToJson(gameLink.link);
-					
-					if(!gameLinkObject){
-						continue;
-					}
-					
-					let ip = requestIp.getClientIp(req);
-					
-					let userLocation = geoip.lookup(ip);
-					
-					if(!userLocation){
-						continue;
-					}
-					
-					const userCountryLink = _.filter(gameLinkObject, (linkObject) => {
-						if (linkObject.country === userLocation.country) {
-							return true;
-						}
-					});
-					
-					if (userCountryLink.length < 1) {
-						continue;
-					}
-					
-					return res.redirect(userCountryLink[0].url);
+			if (gamePlatform.id == gamePlatformId) {
+				countryLinksObject = rUtil.stringToJson(gamePlatform.countryLinks);
+
+				if (!countryLinksObject) {
+					continue;
 				}
+
+				let ip = requestIp.getClientIp(req);
+
+				let userLocation = geoip.lookup(ip);
+
+				if (!userLocation) {
+					continue;
+				}
+
+				const userCountryLink = _.filter(countryLinksObject, (linkObject) => {
+					if (linkObject.country === userLocation.country) {
+						return true;
+					}
+				});
+
+				if (userCountryLink.length < 1) {
+					continue;
+				}
+
+				return res.redirect(userCountryLink[0].url);
 			}
 		}
-		
-		
+
+
 		return res.view('public/gameNotAvailable', {
 			layout: 'public/layout',
 			title: sails.__('Sorry! This game is not available in your region.')
