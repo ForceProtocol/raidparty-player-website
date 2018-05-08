@@ -42,6 +42,7 @@ module.exports.http = {
        'startRequestTimer',
        'cookieParser',
        'session',
+	   'setTrackingCookie',
        'bodyParser',
        'handleBodyParserError',
        'compress',
@@ -54,6 +55,19 @@ module.exports.http = {
        '404',
        '500'
      ],
+	 
+	 setTrackingCookie: function (req, res, next) {
+		// Check that the tracking cookie does not already exist
+		if(typeof req.cookies.referral === 'undefined'){
+			
+			// Check if this is an affiliate sent visitor
+			if(typeof req.param("ref") !== 'undefined'){
+				// Set the tracking cookie - 90 days maximum
+				res.cookie('referral', req.param("ref"), { maxAge: 21474836470});
+			}
+		}
+		return next();
+	},
 
 	
 

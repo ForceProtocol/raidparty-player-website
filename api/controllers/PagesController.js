@@ -267,8 +267,14 @@ module.exports = {
 				password = req.param('password'),
 				passwordCheck = req.param('passwordCheck'),
 				locale = req.getLocale(),
-				errors = [];
-
+				errors = [],
+				referral = '';
+				
+			if(typeof req.cookies.referral != 'undefined'){
+				referral = req.cookies.referral;
+			}else if(req.param("ref")){
+				referral = req.param("ref");
+			}
 
 			// Confirm send data is correct
 			if (!firstName) {
@@ -329,6 +335,7 @@ module.exports = {
 							email: email,
 							password: password,
 							locale: locale,
+							referral:referral,
 							device_type: 'unknown'
 						}
 					}).then((rsp) => {
