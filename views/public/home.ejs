@@ -27,13 +27,15 @@
 		
 		<br />
 		
-		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("Win <span class=\"underline-strong\">50 ETH</span> in prizes on <span class=\"underline-strong\">free to play</span> games!") %></h1>
+		<h1 class="wow fadeIn" data-wow-delay="0.1s"><%- __("Win <span class=\"underline-strong\">prizes</span> on <span class=\"underline-strong\">free to play</span> games!") %></h1>
 		<h2 class="wow fadeIn" data-wow-delay="0.1s"><%- __("<strong data-spaces-left-int='%s' class='spaces-left odometer'>%s</strong> spaces left",totalSpaces,totalSpaces.toLocaleString()) %></h2>
 		<br />
 		
 		<div class=""><% if(totalPlayers > 21000){ %><%- __("join over %s players!",totalPlayers.toLocaleString()) %><% } %></div>
-		<button class="btn btn-cta btn-lg display-join-form"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp; <%- __("Enter Free Contest") %> &nbsp;&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
 		
+		<a class="btn btn-cta btn-lg display-join-form" href="https://player.raidparty.io/signup"><%- __("Play Game Contests") %> &nbsp;&nbsp;&raquo;</a>
+		
+		<!--
 		<div class="container">
 			<div class="hide-join-form col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-8" style="display:none;">
 				<br />
@@ -78,11 +80,11 @@
 					</div>
 				</form>
 			</div>
-		</div>
+		</div>-->
 		
 		<!-- SHOW THIS WHEN LIVE ON APP STORES -->
         <ul class="list-inline app-btns-block">
-            <li class="wow fadeInRight"><a href="https://play.google.com/store/apps/details?id=com.app.Raidparty"><img src="/images/google-play-btn.png" alt="google-store"></a></li>
+            <!--<li class="wow fadeInRight"><a href="https://play.google.com/store/apps/details?id=com.app.Raidparty"><img src="/images/google-play-btn.png" alt="google-store"></a></li>-->
         	<!--<li class="wow fadeInLeft"><a href="/"><img src="/images/app-store-btn.png" alt="app-store"></a></li>-->
         </ul>
 		

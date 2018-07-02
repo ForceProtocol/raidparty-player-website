@@ -63,5 +63,13 @@
 	"A new player just joined the party!": "A new player just joined the party!",
 	"Sorry! This game is not available in region. ": "Sorry! This game is not available in region. ",
 	"Sorry! This game is not available in your region. ": "Sorry! This game is not available in your region. ",
-	"Sorry! This game is not available in your region.": "Sorry! This game is not available in your region."
+	"Sorry! This game is not available in your region.": "Sorry! This game is not available in your region.",
+	"Sign Up": "Sign Up",
+	"Login": "Login",
+	"Enter Game Contests": "Enter Game Contests",
+	"Play Game Contests": "Play Game Contests",
+	"Win <span class=\"underline-strong\">FORCE cryptocurrency</span> for prizes on <span class=\"underline-strong\">free to play</span> games!": "Win <span class=\"underline-strong\">FORCE cryptocurrency</span> for prizes on <span class=\"underline-strong\">free to play</span> games!",
+	"Win <span class=\"underline-strong\">prizes</span> on <span class=\"underline-strong\">free to play</span> games!": "Win <span class=\"underline-strong\">prizes</span> on <span class=\"underline-strong\">free to play</span> games!",
+	"Join Web App": "Join Web App",
+	"Play On Web App": "Play On Web App"
 }
