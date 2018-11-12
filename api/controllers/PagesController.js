@@ -145,6 +145,21 @@ module.exports = {
 
 
 	/**
+	* Return the faq page
+	*/
+	getAddWallet: function (req, res) {
+		var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+
+		return res.view('public/add-wallet', {
+			layout: 'public/layout',
+			title: 'Add ERC20 Wallet',
+			metaDescription: '',
+			recaptchaForm: recaptcha.toHTML()
+		});
+	},
+
+
+	/**
 	* Return the players terms of service
 	*/
 	getTermsOfService: function (req, res) {
@@ -362,6 +377,77 @@ module.exports = {
 			return res.redirect("/join");
 		}
 	},
+
+
+	/**
+	* Submit the ERC20 wallet page
+	*/
+	async postAddWallet(req, res) {
+
+		let email = req.param('email'),
+		etherAddress = req.param('etherAddress'),
+		errors = [];
+
+		try {
+		
+			if (!email) {
+				errors.push(sails.__("You must provide a valid email"));
+			}
+
+			if (!etherAddress) {
+				errors.push(sails.__("You must provide a valid ERC20 wallet address"));
+			}
+
+			if (errors.length > 0) {
+				req.addFlash('errors', errors);
+				return res.redirect("/add-wallet?email=" + email);
+			}
+
+			// Confirm recapture success
+			var data = {
+				remoteip: req.connection.remoteAddress,
+				response: req.param("g-recaptcha-response"),
+				secret: RECAPTCHA_PRIVATE_KEY
+			};
+
+			var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, data);
+
+			recaptcha.verify(function (success, error_code) {
+
+				if (success) {
+					request({
+						method: 'POST',
+						uri: sails.config.API_HOST + '/app/add-wallet',
+						json: true,
+						body: {
+							email: email,
+							etherAddress: etherAddress
+						}
+					}).then((rsp) => {
+						req.addFlash('success', 'Great, your wallet address has been updated successfully');
+						return res.redirect("/add-wallet?email=" + email);
+					}).catch(err => {
+						if (typeof err.response.body.err != 'undefined') {
+							req.addFlash('errors', err.response.body.err);
+						} else {
+							req.addFlash('errors', "There was a server error. Please try again later.");
+						}
+						sails.log.debug('Post Join Submit was an error');
+						return res.redirect("/add-wallet?email=" + email);
+					});
+
+				} else {
+					sails.log.debug("error code:", error_code);
+					req.addFlash('errors', 'There was a problem updating your wallet address.');
+					return res.redirect("/add-wallet?email=" + email);
+				}
+			});
+		} catch (err) {
+			sails.log.error("postAddWallet err: ", err);
+			return res.redirect("/add-wallet?email=" + email);
+		}
+	},
+
 
 
 	/**

@@ -1,0 +1,60 @@
+<%- partial('./partials/header.ejs') %>
+
+
+<section class="banner-area text-center" id="intro">
+    <article class="container text-center mid-blocks">
+		<h1 class="wow fadeIn" data-wow-delay="0.1s">Add Your ERC-20 Wallet Address</h1>
+	</article>
+</section>
+
+<main class="container">
+	<div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 col-lg-offset-3 col-md-offset-3 col-sm-offset-1 wow fadeIn" data-wow-delay="0.4s">
+		
+		<% if(flash.has('errors')){ %>
+		<br /><br />
+		<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('errors').forEach(function (message) { %>
+			<p class="error"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+
+		<% if(flash.has('success')){ %>
+		<br /><br />
+		<div class="alert alert-success col-lg-12 col-md-12 col-sm-12">
+			<% flash.get('success').forEach(function (message) { %>
+			<p class="success"><%- message %></p>
+			<% }) %>
+		</div>
+		<% } %>
+		
+		<br />
+		
+		<form class="form" method="post" action="">
+
+			<input class="form-control" type="hidden" name="email" value="<% if(req.param('email')){ %><%= req.param('email') %><% } %>" required="required" />
+		
+			<div class="form-group">
+				<label data-label="etherAddress">Enter your ERC20 Wallet Address:</label>
+				<input class="form-control" type="text" name="etherAddress" value="" required="required" />
+			</div>
+			
+			<%- recaptchaForm %>
+
+			<br />
+			
+			
+			<div class="form-group">
+				<p>Please ensure your ERC20 wallet address is not from an exchange and is compatible with ERC20 tokens. You can check a verified list of 
+				wallets that are safe to use at the following link: <a href="https://tokenmarket.net/what-is/ethereum-token-wallets/">https://tokenmarket.net/what-is/ethereum-token-wallets/</a></p>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-cta btn-block btn-lg">Update Wallet Address &raquo;</button>
+			</div>
+		</form>
+	</div>
+	
+</main>
+
+<%- partial('./partials/footer.ejs') %>

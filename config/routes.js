@@ -18,4 +18,7 @@ module.exports.routes = {
 	'GET /join-success': 'PagesController.getJoinSuccessPage',
 	'POST /join': 'PagesController.postJoinPage',
 	'POST /subscribe': 'PagesController.postSubscribe',
+
+	'GET /add-wallet': 'PagesController.getAddWallet',
+	'POST /add-wallet': 'PagesController.postAddWallet',
 };
