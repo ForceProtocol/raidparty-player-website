@@ -99,6 +99,40 @@ module.exports = {
 	},
 
 
+	/**
+	* Return the home page
+	*/
+	async getClaimGameKey(req, res) {
+
+		try {
+
+			// This should be the players ID in database e.g.
+			// 37c352f9-c604-46ee-9d7c-a90dbcc3c916
+			let claimId = req.param("claimId");
+
+			// Get the game key for this
+			reqOptions = {
+				uri: sails.config.API_HOST + '/claim-game-key/' + claimId,
+				headers: {
+					'User-Agent': 'Request-Promise'
+				},
+				json: true
+			};
+
+			let gameKey = await request(reqOptions);
+
+			return res.view('public/claim-game-key', {
+				layout: 'public/layout',
+				title: "RaidParty, Claim Your Game Key",
+				metaDescription: "Play Share and Earn while playing amazing games you\'ll love.",
+				gameKey: gameKey
+			});
+		} catch (err) {
+			sails.log.error("getClaimGameKey failed: ", err);
+			return res.redirect("/");
+		}
+	},
+
 
 	/**
 	* Redirect to privacy policy page

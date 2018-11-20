@@ -33,6 +33,8 @@ module.exports = {
     hookTimeout: 120000,
 	
 	API_HOST: 'https://staging.hub.raidparty.io',
-    APP_HOST: 'https://app.raidparty.io'
+    APP_HOST: 'https://app.raidparty.io',
+
+    MAILGUN_KEY: '6cb643a51eaee9afb8aa268986269852-a4502f89-42963f1a'
 
 };

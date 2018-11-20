@@ -12,6 +12,7 @@ module.exports.routes = {
 	'GET /winners': 'PagesController.getWinners',
 	'GET /how-to-play': 'PagesController.getHowToPlay',
 	'GET /check-game-url': 'PagesController.getCheckGameUrl',
+	'GET /claim-game-key/:claimId': 'PagesController.getClaimGameKey',
 	
 	/** Pre Join Landing Page **/
 	'GET /join': 'PagesController.getJoinPage',
